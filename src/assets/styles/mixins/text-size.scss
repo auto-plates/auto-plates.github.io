@@ -1,0 +1,36 @@
+@mixin text1 {
+  font-size: 2.6rem;
+  line-height: 1.4;
+}
+
+@mixin text1Mobile {
+  font-size: 2rem;
+}
+
+@mixin text2 {
+  font-size: 2rem;
+  line-height: 1.4;
+}
+
+@mixin text2Mobile {
+  font-size: 1.6rem;
+}
+
+@mixin plateNumber {
+  font-size: 16.3rem;
+  line-height: 1;
+  font-family: Motor4f;
+}
+
+@mixin plateNumberMobile {
+  font-size: 4rem;
+  font-weight: 700;
+}
+
+@mixin plateNumberTablet {
+  font-size: 7.6rem;
+}
+
+@mixin plateNumberMedium {
+  font-size: 9.4rem;
+}
