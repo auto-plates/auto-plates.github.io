@@ -1,0 +1,21 @@
+.search-result {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.search-result__label {
+  margin-right: 5px;
+}
+
+.search-result__data {
+  margin-left: 2px;
+  font-weight: 700;
+
+  + .search-result__label {
+    margin-left: 30px;
+  }
+}
+
+.search-result__nothing-found {
+  color: crimson;
+}

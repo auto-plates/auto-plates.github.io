@@ -1,13 +1,3 @@
-<div class="container pt-3 pb-3">
-  <div class="app-version">
-    <span
-      class="badge"
-      [ngClass]="{ 'bg-light text-dark': theme === 'light', 'bg-secondary text-light': theme === 'dark' }">
-      1.0
-    </span>
-  </div>
-</div>
-
-<div class="spinner-grow text-primary" role="status" *ngIf="isLoading">
-  <span class="visually-hidden">Loading...</span>
-</div>
+<app-header></app-header>
+<app-plate-form></app-plate-form>
+<app-plate-search-result></app-plate-search-result>
