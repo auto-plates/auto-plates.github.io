@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="flex align-center justify-around pt-5 pb-5 search-result">
+  <div class="search-result flex align-center justify-around pt-5 pb-5 ">
     <ng-container *ngIf="plateInfo; else nothingFoundTmpl">
       <div *ngIf="plateInfo.region" class="search-result__item">
         <span class="search-result__label">Województwo:</span>
@@ -14,6 +14,11 @@
       <div *ngIf="plateInfo.city" class="search-result__item">
         <span class="search-result__label">Miasto:</span>
         <span class="search-result__data">{{ plateInfo.city }}</span>
+      </div>
+
+      <div *ngIf="isPromo" class="search-result__item flex align-center">
+        <mat-icon>stars</mat-icon>
+        <span class="search-result__data">PROMO</span>
       </div>
     </ng-container>
 

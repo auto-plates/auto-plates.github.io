@@ -1,3 +1,51 @@
 .header-spacer {
   flex: auto 1 1;
 }
+
+.logo {
+  background: white;
+  border-radius: 2px;
+  box-sizing: border-box;
+  padding: 4px;
+}
+
+.logo__box {
+  border: 2px solid black;
+  border-radius: 4px;
+  width: 160px;
+  height: 36px;
+}
+
+.logo__sidebar {
+  background: var(--euroflag);
+  width: 20px;
+  height: 32px;
+}
+
+.logo__sidebar__text {
+  color: white;
+  font-size: 8px;
+  font-weight: 700;
+  height: 16px;
+  line-height: 16px;
+}
+
+.logo__sidebar__img {
+  height: 16px;
+  img {
+    height: 10px;
+    width: 10px;
+    vertical-align: super;
+  }
+}
+
+.logo__text {
+  font-family: Motor4F;
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 32px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 140px;
+}

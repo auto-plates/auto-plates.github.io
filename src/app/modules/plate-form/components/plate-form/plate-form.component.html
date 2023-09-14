@@ -11,9 +11,9 @@
         <a mat-stroked-button (click)="searchByExampleQuery()">{{ exmampleSearchQuery }}</a>
       </p>
     </div>
-    <div class="plate__wrapper">
-      <div class="flex plate__box">
-        <div class="flex direction-column align-center justify-around plate__sidebar">
+    <div class="plate__wrapper" [class.plate__wrapper_promo]="isPromo">
+      <div class="plate__box flex" [class.plate__box_promo]="isPromo">
+        <div class="plate__sidebar flex direction-column align-center justify-around ">
           <div class="plate__flag">
             <img src="assets/images/eurostars.svg" />
           </div>
@@ -21,7 +21,7 @@
             PL
           </div>
         </div>
-        <div class="flex justify-between align-center plate__main">
+        <div class="plate__main flex justify-between align-center ">
           <div class="plate__input">
             <app-input
               [control]="plateForm.plate"

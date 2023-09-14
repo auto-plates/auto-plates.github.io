@@ -9,9 +9,14 @@ import { PlateInfo } from '../data/plate-info.enum';
 export class SearchPlateService {
 
   isLoading$ = new BehaviorSubject<boolean>(false);
+  plateInfo$ = new BehaviorSubject<IPlateInfo>(null);
 
   get isloading(): boolean {
     return this.isLoading$.value;
+  }
+
+  get plateInfo(): IPlateInfo {
+    return this.plateInfo$.value;
   }
 
   searchMockedPlateInfo(index: string): IPlateInfo | null {
@@ -19,7 +24,13 @@ export class SearchPlateService {
     setTimeout(() => {
       this.isLoading$.next(false);
     }, 1000);
-    return PlateInfo[index?.toLowerCase()] || null;
+    const result = PlateInfo[index?.toLowerCase()] || null;
+    if (result) {
+      this.plateInfo$.next(result);
+    } else {
+      this.plateInfo$.next(null);
+    }
+    return result;
   }
 
   getExampleSearchQuery(): string {
