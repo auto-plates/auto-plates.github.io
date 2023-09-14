@@ -26,39 +26,48 @@
 
 .plate__wrapper {
   border-radius: 20px;
-  box-shadow: 0 20px 40px #ccc;
+  box-shadow: 0 20px 40px var(--shadow);
   box-sizing: border-box;
   margin: 0 auto;
   padding: 10px;
   width: 1050px;
 
+  &_promo {
+    background: black;
+  }
+
   @include to-medium-desktop {
     border-radius: 16px;
-    box-shadow: 0 12px 32px #ccc;
+    box-shadow: 0 12px 32px var(--shadow);
     padding: 8px;
     max-width: 640px;
   }
   
   @include to-tablet {
     border-radius: 12px;
-    box-shadow: 0 8px 16px #ccc;
+    box-shadow: 0 8px 16px var(--shadow);
     padding: 8px;
     max-width: 540px;
   }
 
   @include mobile {
     border-radius: 10px;
-    box-shadow: 0 5px 10px #ccc;
+    box-shadow: 0 5px 10px var(--shadow);
     padding: 5px;
     max-width: 300px;
   }
 }
 
 .plate__box {
+  background: white;
   border: 8px solid black;
   border-radius: 20px;
   box-sizing: border-box;
   height: 200px;
+
+  &_promo {
+    border-color: var(--promo);
+  }
 
   @include to-medium-desktop {
     border-radius: 16px;
@@ -80,7 +89,7 @@
 }
 
 .plate__sidebar {
-  background: #001489;
+  background: var(--euroflag);
   border-radius: 11px 0 0 11px;
   box-sizing: border-box;
   padding: 20px 0;

@@ -1,5 +1,6 @@
 export interface IPlateInfo {
-  city?: string;
   area?: string;
+  city?: string;
+  promoPlates?: string[];
   region: string;
 }

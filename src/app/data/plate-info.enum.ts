@@ -116,6 +116,7 @@ export const PlateInfo: {[key: string]: IPlateInfo} = {
   'gle': {region: 'Pomorskie', area: 'Lęborski'},
   'gmb': {region: 'Pomorskie', area: 'Malborski'},
   'gnd': {region: 'Pomorskie', area: 'Nowodworski'},
+  'go':  {region: 'Pomorskie', promoPlates: ['pro 4', 'online', 'daddy', 'ahead']},
   'gpu': {region: 'Pomorskie', area: 'Pucki'},
   'gs': {region: 'Pomorskie', city: 'Słupsk'},
   'gsl': {region: 'Pomorskie', area: 'Słupski'},

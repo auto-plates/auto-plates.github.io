@@ -18,6 +18,8 @@ export class PlateSearchResultComponent implements OnInit, OnDestroy {
   plateInfo: IPlateInfo | null;
   plateFormValue: string;
   isLoading: boolean;
+  promoPlates: string[];
+  isPromo: boolean;
 
   private nodeJsSubscription: Subscription;
   private plateFormSubscription: Subscription;
@@ -49,6 +51,7 @@ export class PlateSearchResultComponent implements OnInit, OnDestroy {
     this.plateFormValue = plateFormValue;
     if (!this.isNodeJsBuild) {
       this.plateInfo = this.searchPlateService.searchMockedPlateInfo(plateFormValue);
+      this.isPromo = Boolean(this.plateInfo.promoPlates?.length);
     }
   }
 
