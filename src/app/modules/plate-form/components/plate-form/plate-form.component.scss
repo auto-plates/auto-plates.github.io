@@ -1,0 +1,86 @@
+@font-face {
+  font-family: Motor4f;
+  src: url(../../../../../assets/fonts/Motor4F.ttf);
+}
+
+.plate-form__description {
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.plate__wrapper {
+  box-shadow: 0 20px 40px #ccc;
+  border-radius: 20px;
+  margin: 0 auto;
+  padding: 10px;
+  width: 1050px;
+}
+
+.plate__box {
+  border: 8px solid black;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.plate__sidebar {
+  background: #001489;
+  border-radius: 11px 0 0 11px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 15px;
+  width: 100px;
+  text-align: center;
+
+  img {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+.plate__main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: -10px;
+  padding: 0 60px 0 40px;
+  width: calc(100% - 100px);
+}
+
+.plate__code {
+  color: white;
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-top: 15px;
+}
+
+.plate__input {
+  ::ng-deep {
+    .mat-mdc-text-field-wrapper {
+      background: none;
+      border: none;
+    }
+
+    .mat-mdc-form-field-infix {
+      padding: 0 !important;
+      min-width: 350px;
+    }
+
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+
+    .mat-mdc-form-field-input-control.mat-mdc-form-field-input-control {
+      font-size: 10rem;
+      text-transform: uppercase;
+      font-family: Motor4f;
+    }
+  }
+}
+
+.plate__random-number {
+  font-size: 10rem;
+  font-family: Motor4f;
+  line-height: 178px;
+}

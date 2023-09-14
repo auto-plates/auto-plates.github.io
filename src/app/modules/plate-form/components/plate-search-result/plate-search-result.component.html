@@ -1,0 +1,24 @@
+<div class="container mt-5 mb-5">
+  <div class="search-result mt-5" *ngIf="plateInfo; else nothingFoundTmpl">
+    <div *ngIf="plateInfo.region" class="mt-5 mb-5">
+      <span class="search-result__label">Województwo:</span>
+      <span class="search-result__data">{{ plateInfo.region }}</span>
+    </div>
+
+    <div *ngIf="plateInfo.area" class="mt-5 mb-5">
+      <span class="search-result__label">Powiat:</span>
+      <span class="search-result__data">{{ plateInfo.area }}</span>
+    </div>
+
+    <div *ngIf="plateInfo.city" class="mt-5 mb-5">
+      <span class="search-result__label">Miasto:</span>
+      <span class="search-result__data">{{ plateInfo.city }}</span>
+    </div>
+  </div>
+
+  <ng-template #nothingFoundTmpl>
+    <div class="search-result search-result__nothing-found mt-5 mb-5" *ngIf="!isLoading && plateFormValue">
+      Nic nie udało się znaleźć. Spróbuj ponownie
+    </div>
+  </ng-template>
+</div>
