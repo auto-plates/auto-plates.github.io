@@ -1,21 +1,27 @@
 <mat-progress-bar mode="indeterminate" [class.invisible]="!isLoading"></mat-progress-bar>
 
-<div class="container mt-5 mb-5">
-  <form class="plate-form mt-5">
-    <div class="plate-form__description mt-3 mb-3">
-      Wpisz od 1 do 3 liter w poniższym polu, aby dowiedzieć się, w jakim regionie/mieście został wydany numer.
+<div class="container pt-5 pb-5">
+  <form class="plate-form">
+    <div class="plate-form__description pt-3 pb-3">
+      <p>Wpisz od 1 do 3 liter w poniższym polu, aby dowiedzieć się,
+        w jakim regionie/mieście został wydany numer. 
+      </p>
+      <p>
+        Na przykład
+        <a mat-stroked-button (click)="searchByExampleQuery()">{{ exmampleSearchQuery }}</a>
+      </p>
     </div>
     <div class="plate__wrapper">
-      <div class="plate__box">
-        <div class="plate__sidebar">
+      <div class="flex plate__box">
+        <div class="flex direction-column align-center justify-around plate__sidebar">
           <div class="plate__flag">
             <img src="assets/images/eurostars.svg" />
           </div>
-          <div class="plate__code">
+          <div class="plate__country-code">
             PL
           </div>
         </div>
-        <div class="plate__main">
+        <div class="flex justify-between align-center plate__main">
           <div class="plate__input">
             <app-input
               [control]="plateForm.plate"

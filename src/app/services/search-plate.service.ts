@@ -21,4 +21,9 @@ export class SearchPlateService {
     }, 1000);
     return PlateInfo[index?.toLowerCase()] || null;
   }
+
+  getExampleSearchQuery(): string {
+    const keys = Object.keys(PlateInfo).filter(item => item.length > 1);
+    return keys[Math.floor(Math.random() * keys.length)];
+  }
 }

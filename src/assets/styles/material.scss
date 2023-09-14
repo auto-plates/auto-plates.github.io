@@ -1,0 +1,541 @@
+@import '@angular/material/legacy-prebuilt-themes/deeppurple-amber.css';
+@import './mixins/mixins';
+@import './colors';
+
+.mat-icon {
+  svg {
+    display: block;
+  }
+}
+
+table.mat-table {
+  width: 100%;
+
+  th.mat-header-cell:first-of-type,
+  td.mat-cell:first-of-type,
+  td.mat-footer-cell:first-of-type {
+    padding-left: 0;
+  }
+
+  th .ui-text {
+    @include text1;
+    color: var(--text-default);
+    padding-left: 22px;
+  }
+
+  th.cross-icon {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+}
+
+.mat-input-element {
+  position: relative;
+
+  + .mat-icon {
+    position: absolute;
+    right: 24px;
+    top: 20px;
+
+    @include mobile {
+      top: 16px;
+    }
+
+    svg path {
+      fill: var(--primary);
+    }
+  }
+
+  &.filled {
+    background: var(--primary);
+    color: #fff;
+
+    + .mat-icon {
+      cursor: pointer;
+      svg {
+        g {
+          opacity: 1;
+        }
+        path {
+          stroke: #fff;
+        }
+      }
+    }
+  }
+}
+
+.mat-select {
+  .mat-select-arrow {
+    width: 20px;
+    height: 16px;
+    border: none;
+    margin: 0 -10px;
+    background-image: url(/assets/images/select-icon.svg);
+    background-size: 20px 20px;
+    transition: all 300ms;
+  }
+
+  &[aria-expanded='true'] {
+    .mat-select-arrow {
+      transform: rotate(180deg) !important;
+      margin-top: 4px;
+    }
+  }
+
+  &.mat-select-invalid {
+    .mat-select-arrow {
+      background-image: url(/assets/images/select-icon-error.svg);
+    }
+  }
+}
+
+.ui-select-reset-icon {
+  display: none;
+  position: absolute;
+  right: 26px;
+  top: 25px;
+  width: 24px !important;
+  height: 24px !important;
+  background: #fff;
+  padding: 2px;
+}
+
+.mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: var(--primary);
+}
+
+.mat-select-panel:not([class*='mat-elevation-z']) {
+  border-radius: 10px;
+  border: 3px solid var(--primary);
+  padding: 10px 0;
+  box-sizing: border-box;
+  margin-left: -5px;
+  margin-top: 57px;
+  box-shadow: none;
+
+  &.tags-select,
+  &.vacation-tags-select {
+    min-width: calc(100% + 35px) !important;
+    min-height: 300px;
+    border-radius: 30px;
+    padding: 10px 10px;
+    margin-left: 5px;
+    margin-top: 77px;
+
+    @include mobile {
+      min-width: calc(100% + 70px) !important;
+      margin-top: 60px;
+    }
+
+    @include to-iphone {
+      min-width: calc(100% + 30px) !important;
+      margin-left: 5px;
+    }
+  }
+
+  &.vacation-tags-select {
+    min-width: calc(100% + 70px) !important;
+    .mat-option-text {
+      @include text1;
+
+      @include mobile {
+        @include text2;
+      }
+    }
+  }
+
+  &.tags-select {
+    margin-top: 77px;
+
+    @include mobile {
+      margin-top: 60px;
+    }
+
+    .mat-option-text {
+      @include text1;
+
+      @include mobile {
+        @include text2;
+      }
+    }
+  }
+
+  .mat-option:hover:not(.mat-option-disabled),
+  .mat-option:focus:not(.mat-option-disabled) {
+    background: none;
+  }
+}
+
+.mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
+  background-color: var(--light-grey);
+}
+
+.mat-pseudo-checkbox {
+  border-color: var(--primary) !important;
+  width: 22px !important;
+  height: 22px !important;
+  box-sizing: border-box !important;
+  border-width: 3px !important;
+  border-radius: 6px !important;
+
+  &.mat-pseudo-checkbox-checked::after {
+    top: 4px !important;
+    left: 3px !important;
+  }
+}
+
+.mat-select-panel .mat-optgroup-label,
+.mat-select-panel .mat-option {
+  line-height: 1.6em !important;
+  height: 1.6em !important;
+}
+
+.mat-option.mat-active {
+  background: none;
+}
+
+.mat-primary .mat-pseudo-checkbox-checked,
+.mat-primary .mat-pseudo-checkbox-indeterminate {
+  background: var(--primary);
+}
+
+.mat-button.mat-raised-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  background-color: #3366ff;
+  box-shadow: none;
+
+  &:not(.mat-button-disabled):active:not([class*='mat-elevation-z']) {
+    box-shadow: none;
+  }
+}
+
+.mat-button.mat-raised-button,
+.mat-button-wrapper {
+  height: 38px;
+}
+
+.mat-button-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+// mat-select styles
+.mat-select {
+  display: flex !important;
+  align-items: center;
+}
+
+.mat-select-value {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  height: 100%;
+}
+
+.mat-select-value-text {
+  width: 100%;
+}
+
+.mat-option-text,
+.mat-select-value-text {
+  font-family: StratosLCWeb, sans-serif;
+  color: var(--text-default);
+}
+
+.mat-option-text {
+  @include text2;
+}
+
+// mat-radio-button styles
+.ui-radio-group {
+  .mat-radio-outer-circle {
+    border: 1px solid #d4dfe2;
+    box-sizing: border-box;
+  }
+
+  .mat-radio-label-content {
+    white-space: normal;
+  }
+}
+
+// mat-checkbox styles
+.ui-checkbox-group {
+  & .mat-checkbox-inner-container {
+    width: 20px;
+    height: 20px;
+  }
+
+  & .mat-checkbox-frame {
+    border: 1px solid #d4dfe2;
+  }
+}
+
+// mat-datepicker styles
+.ui-datepicker {
+  .mat-form-field-flex {
+    background: #f9f9f9;
+    width: 230px;
+    height: 68px;
+    align-items: center;
+    padding: 0 15px 0 22px;
+    border: none;
+    border-radius: 10px;
+    box-sizing: border-box;
+  }
+
+  .mat-placeholder-required {
+    display: none;
+  }
+
+  .mat-form-field-underline {
+    display: none;
+  }
+
+  .mat-form-field-infix {
+    border-top: 0;
+  }
+
+  .mat-icon-button {
+    width: 24px;
+    height: 24px;
+  }
+
+  .mat-button-wrapper {
+    height: auto;
+  }
+}
+
+// mat-calendar styles
+.mat-calendar {
+  @include text3;
+
+  font-family: StratosLCWeb, sans-serif;
+  color: #3a465e;
+}
+
+.mat-calendar-body-selected {
+  background-color: #d4dfe2;
+}
+
+.mat-calendar-table {
+  user-select: none;
+}
+
+.mat-calendar-body-label {
+  visibility: hidden;
+}
+
+.ui-switcher {
+  .mat-slide {
+    &-toggle-content {
+      font-family: StratosLCWeb, sans-serif;
+    }
+    &-toggle {
+      &-bar {
+        background: #dae7ec;
+        border-radius: 100px;
+        height: 20px;
+        width: 39px;
+      }
+      &-thumb {
+        height: 14px;
+        width: 14px;
+        &-container {
+          top: 3px;
+          left: 3px;
+        }
+      }
+      .mat-slide-toggle-ripple {
+        top: calc(50% - 23px);
+        left: calc(50% - 23px);
+      }
+      &.mat-checked {
+        .mat-slide-toggle-thumb-container {
+          left: 6px;
+        }
+        .mat-slide-toggle-bar {
+          background: #3366ff;
+          .mat-slide-toggle-thumb {
+            background: #fff;
+          }
+        }
+      }
+    }
+  }
+}
+
+.cdk-overlay-pane {
+  // border-radius: 60px;
+  // overflow-x: auto;
+
+  .mat-dialog-container {
+    position: relative;
+    padding: 0;
+    border-radius: 60px;
+    max-height: 98vh;
+
+    @include to-small-desktop {
+      border-radius: 26px;
+    }
+  }
+
+  .form-tip {
+    @include mobile {
+      display: none;
+    }
+  }
+}
+
+.-lg {
+  .mat-select,
+  .mat-input-element {
+    height: 68px;
+    @include input-text2;
+
+    .mat-select-value,
+    .mat-select-value-text {
+      @include input-text2;
+    }
+  }
+
+  .mat-input-element.filled {
+    + .mat-icon {
+      width: 24px !important;
+      height: 24px !important;
+      top: 26px !important;
+      right: 30px !important;
+
+      @include to-tablet {
+        top: 20px !important;
+        right: 27px !important;
+      }
+    }
+  }
+
+  .mat-select .mat-select-arrow {
+    width: 26px;
+    height: 22px;
+    background-size: 26px 28px;
+
+    @include mobile {
+      width: 20px;
+      height: 20px;
+      background-size: 20px 20px;
+    }
+  }
+
+  &.vacancies-filter {
+    .mat-select,
+    .mat-input-element {
+      @include input-text2;
+
+      @include mobile {
+        @include input-text3;
+      }
+
+      .mat-select-value,
+      .mat-select-value-text {
+        @include input-text2;
+
+        @include mobile {
+          @include input-text3;
+        }
+      }
+    }
+
+    .mat-select .mat-select-arrow {
+      @include mobile {
+        width: 26px;
+        height: 22px;
+        background-size: 26px 28px;
+      }
+    }
+  }
+}
+
+.ui-control .mat-error {
+  display: none;
+}
+
+[class^='admin-'] {
+  .ui-input-root .mat-input-element,
+  .ui-select-root .mat-select,
+  .ui-datepicker-root .mat-input-element {
+    @include input-text3;
+    height: 50px;
+    padding: 22px 20px;
+  }
+
+  .ui-select-root .mat-select .mat-select-value,
+  .ui-select-root .mat-select .mat-select-value-text,
+  .wysiwyg-editor .ql-container,
+  textarea.mat-input-element {
+    @include input-text3;
+  }
+
+  .mat-input-element + .mat-icon {
+    right: 16px;
+    top: 18px;
+  }
+
+  .mat-input-element.filled + .mat-icon {
+    width: 16px;
+  }
+
+  .ui-button {
+    @include button2;
+    padding: 12px 20px;
+    border: 3px solid var(--primary);
+    .ui-text {
+      @include button2;
+    }
+
+    &.-large {
+      @include button2;
+      padding: 12px 20px;
+      .ui-text {
+        @include button2;
+      }
+    }
+  }
+
+  .ui-select-reset-icon {
+    right: 23px;
+    top: 21px;
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  .mat-select .mat-select-arrow {
+    margin: 0 -20px;
+  }
+
+  .ui-list td:not(.action-cell) {
+    padding-left: 22px !important;
+  }
+
+  .total-count.ui-text {
+    @include input-text;
+  }
+
+  @include mobile {
+    .ui-label-root {
+      margin-top: 0 !important;
+    }
+
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+  }
+}
+
+.mat-form-field-infix {
+  @include to-tablet {
+    padding: 0;
+  }
+}

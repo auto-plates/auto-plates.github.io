@@ -1,24 +1,27 @@
-<div class="container mt-5 mb-5">
-  <div class="search-result mt-5" *ngIf="plateInfo; else nothingFoundTmpl">
-    <div *ngIf="plateInfo.region" class="mt-5 mb-5">
-      <span class="search-result__label">Województwo:</span>
-      <span class="search-result__data">{{ plateInfo.region }}</span>
-    </div>
+<div class="container">
+  <div class="flex align-center justify-around pt-5 pb-5 search-result">
+    <ng-container *ngIf="plateInfo; else nothingFoundTmpl">
+      <div *ngIf="plateInfo.region" class="search-result__item">
+        <span class="search-result__label">Województwo:</span>
+        <span class="search-result__data">{{ plateInfo.region }}</span>
+      </div>
+  
+      <div *ngIf="plateInfo.area" class="search-result__item">
+        <span class="search-result__label">Powiat:</span>
+        <span class="search-result__data">{{ plateInfo.area }}</span>
+      </div>
+  
+      <div *ngIf="plateInfo.city" class="search-result__item">
+        <span class="search-result__label">Miasto:</span>
+        <span class="search-result__data">{{ plateInfo.city }}</span>
+      </div>
+    </ng-container>
 
-    <div *ngIf="plateInfo.area" class="mt-5 mb-5">
-      <span class="search-result__label">Powiat:</span>
-      <span class="search-result__data">{{ plateInfo.area }}</span>
-    </div>
-
-    <div *ngIf="plateInfo.city" class="mt-5 mb-5">
-      <span class="search-result__label">Miasto:</span>
-      <span class="search-result__data">{{ plateInfo.city }}</span>
-    </div>
+    <ng-template #nothingFoundTmpl>
+      <div class="search-result__item_nothing-found" *ngIf="!isLoading && plateFormValue">
+        Nic nie udało się znaleźć. Spróbuj ponownie
+      </div>
+    </ng-template>
   </div>
 
-  <ng-template #nothingFoundTmpl>
-    <div class="search-result search-result__nothing-found mt-5 mb-5" *ngIf="!isLoading && plateFormValue">
-      Nic nie udało się znaleźć. Spróbuj ponownie
-    </div>
-  </ng-template>
 </div>

@@ -18,6 +18,7 @@ export class PlateFormComponent implements OnInit, OnDestroy {
   randomPlate: string;
   dynamicMaxLength = 3;
   isLoading: boolean;
+  exmampleSearchQuery: string;
 
   private isLoadingSubscription: Subscription;
 
@@ -30,6 +31,7 @@ export class PlateFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.createForm();
     this.isLoadingSubscription = this.searchPlateService.isLoading$.subscribe(this.handleIsLoading);
+    this.exmampleSearchQuery = this.searchPlateService.getExampleSearchQuery();
     this.plateForm.plate.valueChanges
       .pipe(debounceTime(500))
       .subscribe(this.handlePlateValueChanged);
@@ -39,14 +41,21 @@ export class PlateFormComponent implements OnInit, OnDestroy {
     this.isLoadingSubscription?.unsubscribe();
   }
 
+  searchByExampleQuery(): void {
+    this.plateForm.plate.setValue(this.exmampleSearchQuery);
+    this.exmampleSearchQuery = this.searchPlateService.getExampleSearchQuery();
+  }
+
   private createForm(): void {
     this.plateForm = PlateForm.createForm();
   }
 
   private handlePlateValueChanged = (value: string): void => {
     this.plateValue = value;
+    const letters = this.randomPlateService.randomNumber(0, 3);
+    const numbers = 5 - letters;
     if (value.length > 1) {
-      this.randomPlate = this.randomPlateService.generateRadomPlate(4, 1, 2);
+      this.randomPlate = this.randomPlateService.generateRadomPlate(numbers, letters, 2);
     } else {
       this.randomPlate = null;
     }

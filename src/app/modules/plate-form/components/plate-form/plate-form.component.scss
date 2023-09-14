@@ -1,58 +1,167 @@
-@font-face {
-  font-family: Motor4f;
-  src: url(../../../../../assets/fonts/Motor4F.ttf);
-}
+@import '../../../../../assets/styles/mixins/mixins.scss';
 
 .plate-form__description {
+  @include text2;
   text-align: center;
-  font-size: 1.2rem;
+  max-width: 550px;
+  margin: 0 auto;
+
+  @include mobile {
+    @include text1Mobile;
+    max-width: 90%;
+  }
+
+  a {
+    border-style: dashed;
+    display: inline-block;
+    font-family: Motor4f;
+    font-size: 2.6rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-left: 10px;
+    margin-top: -5px;
+    text-transform: uppercase;
+  }
 }
 
 .plate__wrapper {
-  box-shadow: 0 20px 40px #ccc;
   border-radius: 20px;
+  box-shadow: 0 20px 40px #ccc;
+  box-sizing: border-box;
   margin: 0 auto;
   padding: 10px;
   width: 1050px;
+
+  @include to-medium-desktop {
+    border-radius: 16px;
+    box-shadow: 0 12px 32px #ccc;
+    padding: 8px;
+    max-width: 640px;
+  }
+  
+  @include to-tablet {
+    border-radius: 12px;
+    box-shadow: 0 8px 16px #ccc;
+    padding: 8px;
+    max-width: 540px;
+  }
+
+  @include mobile {
+    border-radius: 10px;
+    box-shadow: 0 5px 10px #ccc;
+    padding: 5px;
+    max-width: 300px;
+  }
 }
 
 .plate__box {
   border: 8px solid black;
   border-radius: 20px;
-  display: flex;
-  flex-direction: row;
+  box-sizing: border-box;
+  height: 200px;
+
+  @include to-medium-desktop {
+    border-radius: 16px;
+    border-width: 6px;
+    height: 120px;
+  }
+
+  @include to-tablet {
+    border-radius: 12px;
+    border-width: 4px;
+    height: 100px;
+  }
+
+  @include mobile {
+    border-radius: 10px;
+    border-width: 3px;
+    height: 60px;
+  }
 }
 
 .plate__sidebar {
   background: #001489;
   border-radius: 11px 0 0 11px;
-  display: flex;
-  flex-direction: column;
-  padding: 20px 15px;
+  box-sizing: border-box;
+  padding: 20px 0;
   width: 100px;
-  text-align: center;
+
+  @include to-medium-desktop {
+    border-radius: 8px 0 0 8px;
+    padding: 8px 0;
+    width: 80px;
+  }
+
+  @include to-tablet {
+    border-radius: 6px 0 0 6px;
+    padding: 4px 0;
+    width: 70px;
+  }
+
+  @include mobile {
+    border-radius: 4px 0 0 4px;
+    padding: 2px 0;
+    width: 40px;
+  }
 
   img {
     width: 70px;
     height: 70px;
+
+    @include to-medium-desktop {
+      height: 50px;
+      width: 50px;
+    }
+
+    @include to-tablet {
+      height: 40px;
+      width: 40px;
+    }
+
+    @include mobile {
+      height: 20px;
+      width: 20px;
+    }
+  }
+}
+
+.plate__country-code {
+  color: white;
+  font-size: 4.4rem;
+  font-weight: 700;
+  line-height: 1;
+
+  @include to-medium-desktop {
+    font-size: 3rem;
+  }
+
+  @include to-tablet {
+    font-size: 2.8rem;
+  }
+
+  @include mobile {
+    font-size: 1.2rem;
   }
 }
 
 .plate__main {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: -10px;
   padding: 0 60px 0 40px;
   width: calc(100% - 100px);
-}
 
-.plate__code {
-  color: white;
-  font-size: 3rem;
-  font-weight: 700;
-  line-height: 1;
-  margin-top: 15px;
+  @include to-medium-desktop {
+    padding: 0 40px 0 20px;
+    width: calc(640px - 80px);
+  }
+
+  @include to-tablet {
+    padding: 0 40px 0 20px;
+    width: calc(540px - 70px);
+  }
+
+  @include mobile {
+    padding: 0 20px 0 10px;
+    width: calc(300px - 50px);
+  }
 }
 
 .plate__input {
@@ -60,11 +169,36 @@
     .mat-mdc-text-field-wrapper {
       background: none;
       border: none;
+
+      @include to-medium-desktop {
+        max-width: 230px;
+      }
+
+      @include to-tablet {
+        max-width: 200px;
+      }
+
+      @include mobile {
+        max-width: 106px;
+        padding: 0 8px;
+      }
     }
 
     .mat-mdc-form-field-infix {
       padding: 0 !important;
       min-width: 350px;
+
+      @include to-medium-desktop {
+        min-width: 230px;
+      }
+
+      @include to-tablet {
+        min-width: 200px;
+      }
+      
+      @include mobile {
+        min-width: 100px;
+      }
     }
 
     .mat-mdc-form-field-subscript-wrapper {
@@ -72,15 +206,41 @@
     }
 
     .mat-mdc-form-field-input-control.mat-mdc-form-field-input-control {
-      font-size: 10rem;
+      @include plateNumber;
       text-transform: uppercase;
-      font-family: Motor4f;
+
+      @include to-medium-desktop {
+        @include plateNumberMedium;
+      }
+      
+      @include to-tablet {
+        @include plateNumberTablet;
+      }
+
+      @include mobile {
+        @include plateNumberMobile;
+        line-height: 60px;
+      }
+    }
+
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+      border-bottom: none;
     }
   }
 }
 
 .plate__random-number {
-  font-size: 10rem;
-  font-family: Motor4f;
-  line-height: 178px;
+  @include plateNumber;
+
+  @include to-medium-desktop {
+    @include plateNumberMedium;
+  }
+
+  @include to-tablet {
+    @include plateNumberTablet;
+  }
+  
+  @include mobile {
+    @include plateNumberMobile;
+  }
 }
