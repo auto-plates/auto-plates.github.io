@@ -1,11 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { PlateForm } from '../../forms/plate.form';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, debounceTime } from 'rxjs';
-import { RandomPlateService } from 'src/app/services/random-plate.service';
 import { BuildService } from 'src/app/services/build.service';
-import { PlateFormService } from 'src/app/services/plate-form.service';
 import { SearchPlateService } from 'src/app/services/search-plate.service';
 import { IPlateInfo } from 'src/app/interfaces/plate-info.interface';
+import { ProgressBarService } from 'src/app/services/progress-bar.service';
+import { PlateForm } from '../../forms/plate.form';
 
 @Component({
   selector: 'app-plate-search-result',
@@ -14,48 +13,69 @@ import { IPlateInfo } from 'src/app/interfaces/plate-info.interface';
 })
 export class PlateSearchResultComponent implements OnInit, OnDestroy {
 
+  @Input() form: PlateForm;
+  
   isNodeJsBuild: boolean;
   plateInfo: IPlateInfo | null;
-  plateFormValue: string;
-  isLoading: boolean;
   promoPlates: string[];
   isPromo: boolean;
+  isNothingFound = false;
+  isFormSubmitted: boolean;
+  isRegionSelected = false;
 
   private nodeJsSubscription: Subscription;
-  private plateFormSubscription: Subscription;
-  private isLoadingSubscription: Subscription;
 
   constructor(
     private buildService: BuildService,
-    private plateFormService: PlateFormService,
-    private searchPlateService: SearchPlateService
+    private searchPlateService: SearchPlateService,
+    private pb: ProgressBarService,
   ) {}
 
   ngOnInit(): void {
     this.nodeJsSubscription = this.buildService.isNodeJsBuild$.subscribe(this.handleBuild);
-    this.plateFormSubscription = this.plateFormService.plateFormValue$.subscribe(this.handlePlateFormValue);
-    this.isLoadingSubscription = this.searchPlateService.isLoading$.subscribe(this.handleIsLoading);
+    this.form.plate.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe(this.searchPlate);
   }
 
   ngOnDestroy(): void {
     this.nodeJsSubscription?.unsubscribe();
-    this.plateFormSubscription?.unsubscribe();
-    this.isLoadingSubscription?.unsubscribe();
+  }
+
+  selectRegion(): void {
+    if (this.isRegionSelected) {
+      return;
+    }
+    this.isRegionSelected = true;
   }
 
   private handleBuild = (isNodeJsBuild: boolean): void => {
     this.isNodeJsBuild = isNodeJsBuild;
   }
 
-  private handlePlateFormValue = (plateFormValue: string): void => {
-    this.plateFormValue = plateFormValue;
-    if (!this.isNodeJsBuild) {
-      this.plateInfo = this.searchPlateService.searchMockedPlateInfo(plateFormValue);
-      this.isPromo = Boolean(this.plateInfo.promoPlates?.length);
+  private searchPlate = (value: string): void => {
+    this.isRegionSelected = null;
+    this.plateInfo = null;
+    if (value) {
+      this.pb.startProgress();
+      this.isNothingFound = false;
+      if (!this.isNodeJsBuild) {
+        this.searchPlateService.searchPlateInfoMocked(value).subscribe(this.handlePlateInfo);
+      } else {
+        // TODO add here service for node JS
+      }
     }
   }
 
-  private handleIsLoading = (isLoading: boolean): void => {
-    this.isLoading = isLoading;
-  }
+  private handlePlateInfo = (plateInfo: IPlateInfo): void => {
+    setTimeout(() => {
+      if (plateInfo) {
+        this.plateInfo = plateInfo;
+        this.isPromo = Boolean(this.plateInfo?.promoPlates?.length);
+      }
+      this.searchPlateService.plateInfo$.next(plateInfo);
+      this.isNothingFound = Boolean(this.form.plate?.value && !plateInfo);
+      this.pb.stopProgress();
+    }, this.pb.localProgressTime)
+  } 
 }

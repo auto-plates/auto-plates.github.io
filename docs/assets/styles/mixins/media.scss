@@ -1,0 +1,133 @@
+@import '../breakpoints';
+
+@mixin to-iphone {
+  @media screen and (max-width: $iphone - 1px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: $big-mobile - 1px) {
+    @content;
+  }
+}
+
+@mixin to-big-mobile {
+  @media screen and (max-width: $big-mobile - 1px) {
+    @content;
+  }
+}
+
+@mixin big-mobile {
+  @media screen and (min-width: $big-mobile) and (max-width: $tablet - 1px) {
+    @content;
+  }
+}
+
+@mixin to-tablet {
+  @media screen and (max-width: $tablet - 1px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (min-width: $tablet) and (max-width: $small-desktop - 1px) {
+    @content;
+  }
+}
+
+@mixin to-small-desktop {
+  @media screen and (max-width: $small-desktop - 1px) {
+    @content;
+  }
+}
+
+@mixin small-desktop {
+  @media screen and (min-width: $small-desktop) and (max-width: $medium-desktop - 1px) {
+    @content;
+  }
+}
+
+@mixin to-medium-desktop {
+  @media screen and (max-width: $medium-desktop - 1px) {
+    @content;
+  }
+}
+
+@mixin medium-desktop {
+  @media screen and (min-width: $medium-desktop) and (max-width: $laptop13 - 1px) {
+    @content;
+  }
+}
+
+@mixin to-laptop13 {
+  @media screen and (max-width: $laptop13 - 1px) {
+    @content;
+  }
+}
+
+@mixin laptop13 {
+  @media screen and (min-width: $laptop13) and (max-width: $mac13 - 1px) {
+    @content;
+  }
+}
+
+@mixin to-mac13 {
+  @media screen and (max-width: $mac13 - 1px) {
+    @content;
+  }
+}
+
+@mixin mac13 {
+  @media screen and (min-width: $mac13) and (max-width: $laptop15 - 1px) {
+    @content;
+  }
+}
+
+@mixin to-laptop15 {
+  @media screen and (max-width: $laptop15 - 1px) {
+    @content;
+  }
+}
+
+@mixin laptop15 {
+  @media screen and (min-width: $laptop15) and (max-width: $mac15 - 1px) {
+    @content;
+  }
+}
+
+@mixin to-mac15 {
+  @media screen and (max-width: $mac15 - 1px) {
+    @content;
+  }
+}
+
+@mixin mac15 {
+  @media screen and (min-width: $mac15) and (max-width: $big-desktop - 1px) {
+    @content;
+  }
+}
+
+@mixin to-big-desktop {
+  @media screen and (max-width: $big-desktop - 1px) {
+    @content;
+  }
+}
+
+@mixin big-desktop {
+  @media screen and (min-width: $big-desktop) and (max-width: $imac - 1px) {
+    @content;
+  }
+}
+
+@mixin to-imac {
+  @media screen and (max-width: $imac - 1px) {
+    @content;
+  }
+}
+
+@mixin imac {
+  @media screen and (min-width: $imac) {
+    @content;
+  }
+}

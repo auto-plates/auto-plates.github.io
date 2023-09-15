@@ -1,5 +1,3 @@
-<mat-progress-bar mode="indeterminate" [class.invisible]="!isLoading"></mat-progress-bar>
-
 <div class="container pt-5 pb-5">
   <form class="plate-form">
     <div class="plate-form__description pt-3 pb-3">
@@ -8,7 +6,7 @@
       </p>
       <p>
         Na przykład
-        <a mat-stroked-button (click)="searchByExampleQuery()">{{ exmampleSearchQuery }}</a>
+        <a mat-stroked-button (click)="searchByExampleQuery()">{{ randomSearchQuery }}</a>
       </p>
     </div>
     <div class="plate__wrapper" [class.plate__wrapper_promo]="isPromo">
@@ -24,7 +22,7 @@
         <div class="plate__main flex justify-between align-center ">
           <div class="plate__input">
             <app-input
-              [control]="plateForm.plate"
+              [control]="form.plate"
               [showLabel]="false"
               [showCloseBtn]="false"
               [maxLength]="dynamicMaxLength"

@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class RandomPlateService {
 
-  generateRadomPlate(numbers: number = 1, letters: number = 0, staticStartIndex: number = 0): string {
+  generateRadomPlate(): string {
     const resultArr = [];
     const lettersChars = 'ABCDEFGHJKLMNPRSTUVWXY';
     const numbersChars = '0123456789';
+    const letters = this.randomNumber(0, 3);
+    const numbers = 5 - letters;
+    const staticStartIndex = 1;
 
     for (let i = 0; i < numbers; i++) {
       resultArr.push(numbersChars.charAt(this.randomNumber(0, numbersChars.length)));
