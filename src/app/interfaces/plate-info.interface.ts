@@ -3,4 +3,5 @@ export interface IPlateInfo {
   city?: string;
   promoPlates?: string[];
   region: string;
+  code: string;
 }

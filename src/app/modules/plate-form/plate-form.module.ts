@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '../forms/forms.module';
 import { PlateSearchResultComponent } from './components/plate-search-result/plate-search-result.component';
 import { MaterialModule } from '../material/material.module';
+import { RegionalListComponent } from './components/regional-list/regional-list.component';
 
 @NgModule({
   declarations: [
     PlateFormComponent,
     PlateSearchResultComponent,
+    RegionalListComponent,
   ],
   imports: [
     CommonModule,
@@ -18,6 +20,7 @@ import { MaterialModule } from '../material/material.module';
   exports: [
     PlateFormComponent,
     PlateSearchResultComponent,
+    RegionalListComponent,
   ],
   providers: []
 })

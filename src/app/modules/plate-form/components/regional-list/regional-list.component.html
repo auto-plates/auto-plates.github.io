@@ -1,0 +1,46 @@
+<div class="container pb-5">
+  <div class="regional-lsit__wrapper flex pt-5 pb-5">
+    <table mat-table [dataSource]="plateInfoList" class="mat-elevation-z8">
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef>Kod</th>
+        <td mat-cell *matCellDef="let plateInfo" class="code-cell"> {{ plateInfo.code }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="region">
+        <th mat-header-cell *matHeaderCellDef>Województwo</th>
+        <td mat-cell *matCellDef="let plateInfo"> {{ plateInfo.region }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="area">
+        <th mat-header-cell *matHeaderCellDef>Powiat</th>
+        <td mat-cell *matCellDef="let plateInfo"> {{ plateInfo.area }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="city">
+        <th mat-header-cell *matHeaderCellDef>Miasto</th>
+        <td mat-cell *matCellDef="let plateInfo"> {{ plateInfo.city }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="plate">
+        <th mat-header-cell *matHeaderCellDef>Próbka</th>
+        <td mat-cell *matCellDef="let plateInfo">
+          <div class="plate flex">
+            <div class="plate__sidebar flex direction-column justify-around align-center">
+              <div class="plate__sidebar__img">
+                <img src="assets/images/eurostars.svg" />
+              </div>
+              <div class="plate__sidebar__text">PL</div>
+            </div>
+            <div class=plate__text>
+              {{ examplePlates[plateInfo.code] }}
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>    
+  </div>
+</div>

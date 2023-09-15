@@ -1,6 +1,6 @@
-<mat-toolbar>
-  <div class="logo">
-    <div class="logo__box flex">
+<div class="header">
+  <mat-toolbar>
+    <div class="logo flex">
       <div class="logo__sidebar flex direction-column justify-around align-center">
         <div class="logo__sidebar__img">
           <img src="assets/images/eurostars.svg" />
@@ -11,7 +11,9 @@
         auto•plates
       </div>
     </div>
-  </div>
-  <span class="header-spacer"></span>
-  <app-version></app-version>
-</mat-toolbar>
+    <span class="header-spacer"></span>
+    <app-version></app-version>
+  </mat-toolbar>
+  
+  <mat-progress-bar mode="indeterminate" [class.invisible]="!isLoadInProgress"></mat-progress-bar>
+</div>

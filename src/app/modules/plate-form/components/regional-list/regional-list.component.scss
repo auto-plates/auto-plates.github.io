@@ -1,49 +1,49 @@
 @import '../../../../../assets/styles/mixins/mixins.scss';
 
-.header-spacer {
-  flex: auto 1 1;
-  @include to-big-mobile {
-    display: none;
-  }
+.code-cell {
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
-.logo {
+.plate {
   background: white;
   border: 2px solid black;
   border-radius: 4px;
   height: 36px;
-  margin: 0 auto;
-  width: 240px;
+  width: 220px;
 }
 
-.logo__sidebar {
+.plate__sidebar {
   background: var(--euroflag);
   width: 20px;
   height: 32px;
 }
 
-.logo__sidebar__text {
+.plate__sidebar__text {
   color: white;
   font-size: 8px;
   height: 16px;
   line-height: 16px;
 }
 
-.logo__sidebar__img {
+.plate__sidebar__img {
   height: 16px;
   img {
     height: 12px;
     width: 12px;
-    vertical-align: super;
   }
 }
 
-.logo__text {
+.plate__text {
   font-family: Motor4F;
   font-size: 3.9rem;
   letter-spacing: -1px;
   line-height: 32px;
   text-align: center;
   text-transform: uppercase;
-  width: 220px;
+  width: 188px;
+}
+
+.container {
+  max-width: 980px;
 }

@@ -30,24 +30,20 @@
   box-sizing: border-box;
   margin: 0 auto;
   padding: 10px;
-  width: 1050px;
-
-  &_promo {
-    background: black;
-  }
+  width: 980px;
 
   @include to-medium-desktop {
     border-radius: 16px;
     box-shadow: 0 12px 32px var(--shadow);
     padding: 8px;
-    max-width: 640px;
+    max-width: 620px;
   }
   
   @include to-tablet {
     border-radius: 12px;
     box-shadow: 0 8px 16px var(--shadow);
     padding: 8px;
-    max-width: 540px;
+    max-width: 510px;
   }
 
   @include mobile {
@@ -63,7 +59,7 @@
   border: 8px solid black;
   border-radius: 20px;
   box-sizing: border-box;
-  height: 200px;
+  height: 140px;
 
   &_promo {
     border-color: var(--promo);
@@ -72,19 +68,19 @@
   @include to-medium-desktop {
     border-radius: 16px;
     border-width: 6px;
-    height: 120px;
+    height: 90px;
   }
 
   @include to-tablet {
     border-radius: 12px;
     border-width: 4px;
-    height: 100px;
+    height: 76px;
   }
 
   @include mobile {
-    border-radius: 10px;
+    border-radius: 6px;
     border-width: 3px;
-    height: 60px;
+    height: 46px;
   }
 }
 
@@ -92,84 +88,84 @@
   background: var(--euroflag);
   border-radius: 11px 0 0 11px;
   box-sizing: border-box;
-  padding: 20px 0;
-  width: 100px;
+  padding: 8px 0;
+  width: 80px;
 
   @include to-medium-desktop {
     border-radius: 8px 0 0 8px;
-    padding: 8px 0;
-    width: 80px;
+    padding: 4px 0;
+    width: 60px;
   }
 
   @include to-tablet {
-    border-radius: 6px 0 0 6px;
-    padding: 4px 0;
-    width: 70px;
+    border-radius: 4px 0 0 4px;
+    padding: 3px 0;
+    width: 46px;
   }
 
   @include mobile {
-    border-radius: 4px 0 0 4px;
+    border-radius: 3px 0 0 3px;
     padding: 2px 0;
-    width: 40px;
+    width: 30px;
   }
 
   img {
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
 
     @include to-medium-desktop {
-      height: 50px;
-      width: 50px;
+      height: 32px;
+      width: 32px;
     }
 
     @include to-tablet {
-      height: 40px;
-      width: 40px;
+      height: 26px;
+      width: 26px;
     }
 
     @include mobile {
-      height: 20px;
-      width: 20px;
+      height: 16px;
+      width: 16px;
     }
   }
 }
 
 .plate__country-code {
   color: white;
-  font-size: 4.4rem;
+  font-size: 4rem;
   font-weight: 700;
   line-height: 1;
 
   @include to-medium-desktop {
-    font-size: 3rem;
+    font-size: 2.4rem;
   }
 
   @include to-tablet {
-    font-size: 2.8rem;
+    font-size: 2.2rem;
   }
 
   @include mobile {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 }
 
 .plate__main {
-  padding: 0 60px 0 40px;
-  width: calc(100% - 100px);
+  padding: 0 20px;
+  width: calc(100% - 80px);
 
   @include to-medium-desktop {
-    padding: 0 40px 0 20px;
-    width: calc(640px - 80px);
+    padding: 0 16px;
+    width: calc(100% - 60px);
   }
 
   @include to-tablet {
-    padding: 0 40px 0 20px;
-    width: calc(540px - 70px);
+    padding: 0 12px;
+    width: calc(100% - 46px);
   }
 
   @include mobile {
-    padding: 0 20px 0 10px;
-    width: calc(300px - 50px);
+    padding: 0 6px;
+    width: calc(100% - 30px);
   }
 }
 
@@ -178,18 +174,18 @@
     .mat-mdc-text-field-wrapper {
       background: none;
       border: none;
+      padding: 0;
 
       @include to-medium-desktop {
         max-width: 230px;
       }
 
       @include to-tablet {
-        max-width: 200px;
+        max-width: 180px;
       }
 
       @include mobile {
         max-width: 106px;
-        padding: 0 8px;
       }
     }
 
@@ -199,14 +195,17 @@
 
       @include to-medium-desktop {
         min-width: 230px;
+        min-height: 78px;
       }
 
       @include to-tablet {
-        min-width: 200px;
+        min-width: 180px;
+        min-height: 68px;
       }
       
       @include mobile {
-        min-width: 100px;
+        min-height: 40px;
+        min-width: 106px;
       }
     }
 
@@ -217,18 +216,21 @@
     .mat-mdc-form-field-input-control.mat-mdc-form-field-input-control {
       @include plateNumber;
       text-transform: uppercase;
+      max-height: 120px;
 
       @include to-medium-desktop {
         @include plateNumberMedium;
+        height: 80px !important;
       }
       
       @include to-tablet {
         @include plateNumberTablet;
+        height: 70px !important;
       }
 
       @include mobile {
         @include plateNumberMobile;
-        line-height: 60px;
+        height: 44px !important;
       }
     }
 

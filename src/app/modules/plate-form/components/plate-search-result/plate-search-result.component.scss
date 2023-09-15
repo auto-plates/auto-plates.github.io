@@ -38,3 +38,16 @@
     margin-left: 30px;
   }
 }
+
+.search-result__data_link {
+  border-style: dashed;
+  display: inline-block;
+  height: 50px;
+  line-height: 50px !important;
+  margin-top: -6px;
+  @include text1;
+
+  @include mobile {
+    @include text1Mobile;
+  }
+}

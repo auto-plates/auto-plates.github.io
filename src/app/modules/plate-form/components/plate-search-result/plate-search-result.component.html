@@ -3,7 +3,15 @@
     <ng-container *ngIf="plateInfo; else nothingFoundTmpl">
       <div *ngIf="plateInfo.region" class="search-result__item">
         <span class="search-result__label">Województwo:</span>
-        <span class="search-result__data">{{ plateInfo.region }}</span>
+        <span class="search-result__data">
+          <a
+            mat-stroked-button
+            (click)="selectRegion()"
+            class="search-result__data_link no-lc"
+          >
+            {{ plateInfo.region }}
+          </a>
+        </span>
       </div>
   
       <div *ngIf="plateInfo.area" class="search-result__item">
@@ -23,10 +31,11 @@
     </ng-container>
 
     <ng-template #nothingFoundTmpl>
-      <div class="search-result__item_nothing-found" *ngIf="!isLoading && plateFormValue">
+      <div class="search-result__item_nothing-found" *ngIf="isNothingFound">
         Nic nie udało się znaleźć. Spróbuj ponownie
       </div>
     </ng-template>
   </div>
-
 </div>
+
+<app-regional-list *ngIf="isRegionSelected" [plateInfo]="plateInfo"></app-regional-list>
