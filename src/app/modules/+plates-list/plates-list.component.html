@@ -1,0 +1,13 @@
+<div class="mt-3" *ngIf="regions?.length">
+  <app-tabs
+    *ngIf="regionsAsTabs"
+    [tabs]="regionsAsTabs"
+    [selectedTabIndex]="selectedTabIndex"
+    (tabChanged)="updateList($event)"
+    >
+  </app-tabs>
+  
+  <ng-container *ngFor="let region of regions; let idx = index">
+    <app-regional-list *ngIf="idx === selectedTabIndex" [region]="region"></app-regional-list>
+  </ng-container>
+</div>

@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 @NgModule({
@@ -22,7 +23,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatProgressBarModule,
     MatTableModule,
     MatTooltipModule,
-
+    MatTabsModule,
   ],
   exports: [
     MatIconModule,
@@ -34,6 +35,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatProgressBarModule,
     MatTableModule,
     MatTooltipModule,
+    MatTabsModule,
   ],
   providers: []
 })

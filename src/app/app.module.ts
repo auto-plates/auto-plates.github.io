@@ -1,29 +1,22 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { EndingsPipe } from './pipes/endings.pipe';
-import { FormsModule } from '@angular/forms';
 import { HeaderModule } from './modules/header/header.module';
-import { PlateFormModule } from './modules/plate-form/plate-form.module';
 import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
+import { RouteHelper } from './helpers/route.helper';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    EndingsPipe,
-  ],
+  declarations: [ AppComponent ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule,
+    AppRoutingModule,
     HeaderModule,
-    PlateFormModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ RouteHelper ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

@@ -1,6 +1,10 @@
 <div class="header">
   <mat-toolbar>
-    <div class="logo flex">
+    <div
+      class="logo flex"
+      (click)="navigateToDashboard()"
+      [class.pointer]="isInnerPage"
+    >
       <div class="logo__sidebar flex direction-column justify-around align-center">
         <div class="logo__sidebar__img">
           <img src="assets/images/eurostars.svg" />
