@@ -21,12 +21,12 @@ export class SearchPlateService {
     return of(PlateInfoList.filter(item => item.code.toLowerCase() === code.toLowerCase())[0]);
   }
 
-  searchPlateInfosByRegionMocked(region: string): Observable<IPlateInfo[]> {
-    return of(PlateInfoList.filter(item => item.code.length > 1 && item.region === region))
+  searchPlateInfosByRegionMocked(regionTitle: string): Observable<IPlateInfo[]> {
+    return of(PlateInfoList.filter(item => item.code.length > 1 && item.region.title === regionTitle))
   }
 
   getRandomSearchQueryMocked = (): Observable<IPlateInfo> => {
     const filteredPlates = PlateInfoList.filter(item => item.code.length > 1);
-    return of(filteredPlates[this.randomPlateService.randomNumber(0, filteredPlates.length)]);
+    return of(filteredPlates[this.randomPlateService.randomNumber(0, filteredPlates.length - 1)]);
   }
 }

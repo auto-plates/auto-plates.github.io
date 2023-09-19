@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="search-result flex align-center justify-around pt-5 pb-5 ">
-    <ng-container *ngIf="plateInfo; else nothingFoundTmpl">
+  <div class="search-result flex direction-column pt-5 pb-5">
+    <ng-container *ngIf="plateInfo; else nothingFoundTpl">
       <div *ngIf="plateInfo.region" class="search-result__item">
         <span class="search-result__label">Województwo:</span>
         <span class="search-result__data">
@@ -9,28 +9,53 @@
             (click)="selectRegion()"
             class="search-result__data_link no-lc"
           >
-            {{ plateInfo.region }}
+            {{ plateInfo.region.title }}
           </a>
         </span>
+      </div>
+
+      <div *ngIf="plateInfo.promoPlates?.length" class="search-result__item flex align-center">
+        <mat-icon>stars</mat-icon>
+        <span class="search-result__data">PROMO</span>
       </div>
   
       <div *ngIf="plateInfo.area" class="search-result__item">
         <span class="search-result__label">Powiat:</span>
-        <span class="search-result__data">{{ plateInfo.area }}</span>
+        <span class="search-result__data">{{ plateInfo.area.title }}</span>
       </div>
-  
+      
       <div *ngIf="plateInfo.city" class="search-result__item">
         <span class="search-result__label">Miasto:</span>
-        <span class="search-result__data">{{ plateInfo.city }}</span>
+        <span class="search-result__data">{{ plateInfo.city?.title }}</span>
       </div>
 
-      <div *ngIf="isPromo" class="search-result__item flex align-center">
-        <mat-icon>stars</mat-icon>
-        <span class="search-result__data">PROMO</span>
+      <div *ngIf="plateInfo.city?.districts?.length" class="search-result__item">
+        <ng-container *ngIf="plateInfo.city.districts.length > 1; else singleDistrictTpl">
+          <div class="search-result__label">Dzielnice:</div>
+          <div *ngFor="let district of plateInfo.city.districts" class="search-result__list-item">
+            <ng-container *ngTemplateOutlet="districtTpl; context: district"></ng-container>
+          </div>
+        </ng-container>
+
+        <ng-template singleDistrictTpl>
+          <span class="search-result__label">Dzielnica:</span>
+          <ng-container *ngTemplateOutlet="districtTpl; context: plateInfo.city.districts[0]"></ng-container>
+        </ng-template>
+
+        <ng-template
+          #districtTpl
+          let-title="title"
+          let-lastLetters="lastLetters"
+          let-prelastLetter="prelastLetter"
+        >
+          <span class="search-result__data">{{ title }}</span>
+          <span *ngIf="lastLetters?.length"> (ostatnie litery - {{ lastLetters.join(', ') }})</span>
+          <span *ngIf="prelastLetter"> (przedostatnia litera - {{ prelastLetter }})</span>
+        </ng-template>
       </div>
     </ng-container>
 
-    <ng-template #nothingFoundTmpl>
+    <ng-template #nothingFoundTpl>
       <div class="search-result__item_nothing-found" *ngIf="isNothingFound">
         Nic nie udało się znaleźć. Spróbuj ponownie
       </div>
@@ -38,4 +63,8 @@
   </div>
 </div>
 
-<app-regional-list *ngIf="isRegionSelected" [plateInfo]="plateInfo"></app-regional-list>
+<app-regional-list
+  *ngIf="isRegionSelected"
+  [region]="plateInfo.region"
+  [currentCode]="plateInfo.code"
+></app-regional-list>

@@ -7,6 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 @NgModule({
   declarations: [],
@@ -19,6 +21,7 @@ import { MatTableModule } from '@angular/material/table';
     MatInputModule,
     MatProgressBarModule,
     MatTableModule,
+    MatTooltipModule,
 
   ],
   exports: [
@@ -30,6 +33,7 @@ import { MatTableModule } from '@angular/material/table';
     MatInputModule,
     MatProgressBarModule,
     MatTableModule,
+    MatTooltipModule,
   ],
   providers: []
 })
