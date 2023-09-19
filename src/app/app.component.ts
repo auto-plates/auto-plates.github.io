@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemesEnum } from './data/theme.enum';
 import { BuildService } from './services/build.service';
-import { PlateForm } from './modules/plate-form/forms/plate.form';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +9,6 @@ import { PlateForm } from './modules/plate-form/forms/plate.form';
 })
 export class AppComponent implements OnInit {
 
-  plateForm: PlateForm;
   theme: ThemesEnum = ThemesEnum.LIGHT;
   themesEnum = ThemesEnum;
 
@@ -21,7 +19,6 @@ export class AppComponent implements OnInit {
   constructor(private buildService: BuildService) {}
 
   ngOnInit(): void {
-    this.createForm();
     this.buildService.isNodeJsBuild$.next(false);
   }
 
@@ -30,9 +27,5 @@ export class AppComponent implements OnInit {
     localStorage.setItem('theme', this.theme);
     const html = document.querySelector('html');
     html.setAttribute('data-bs-theme', this.theme);
-  }
-
-  private createForm(): void {
-    this.plateForm = PlateForm.createForm();
   }
 }

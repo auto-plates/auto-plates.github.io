@@ -5,6 +5,7 @@ import { SearchPlateService } from 'src/app/services/search-plate.service';
 import { IPlateInfo } from 'src/app/interfaces/plate-info.interface';
 import { ProgressBarService } from 'src/app/services/progress-bar.service';
 import { PlateForm } from '../../forms/plate.form';
+import { RouteHelper } from 'src/app/helpers/route.helper';
 
 @Component({
   selector: 'app-plate-search-result',
@@ -15,15 +16,16 @@ export class PlateSearchResultComponent implements OnInit, OnDestroy {
 
   @Input() form: PlateForm;
   
-  isNodeJsBuild: boolean;
   plateInfo: IPlateInfo | null;
   isNothingFound = false;
   isFormSubmitted: boolean;
   isRegionSelected = false;
-
+  
+  private isNodeJsBuild: boolean;
   private nodeJsSubscription: Subscription;
 
   constructor(
+    public routeHelper: RouteHelper,
     private buildService: BuildService,
     private searchPlateService: SearchPlateService,
     private pb: ProgressBarService,

@@ -5,12 +5,10 @@
         <span class="search-result__label">Województwo:</span>
         <span class="search-result__data">
           <a
-            mat-stroked-button
-            (click)="selectRegion()"
-            class="search-result__data_link no-lc"
-          >
-            {{ plateInfo.region.title }}
-          </a>
+            [routerLink]="routeHelper.ListUrl"
+            [queryParams]="{ region: plateInfo.region.title.toLowerCase() }"
+            class="search-result__data"
+          >{{ plateInfo.region.title }}</a>
         </span>
       </div>
 
@@ -62,9 +60,3 @@
     </ng-template>
   </div>
 </div>
-
-<app-regional-list
-  *ngIf="isRegionSelected"
-  [region]="plateInfo.region"
-  [currentCode]="plateInfo.code"
-></app-regional-list>

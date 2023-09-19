@@ -4,23 +4,22 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '../forms/forms.module';
 import { PlateSearchResultComponent } from './components/plate-search-result/plate-search-result.component';
 import { MaterialModule } from '../material/material.module';
-import { RegionalListComponent } from './components/regional-list/regional-list.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     PlateFormComponent,
     PlateSearchResultComponent,
-    RegionalListComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
-    MaterialModule
+    RouterModule,
+    MaterialModule,
   ],
   exports: [
     PlateFormComponent,
     PlateSearchResultComponent,
-    RegionalListComponent,
   ],
   providers: []
 })

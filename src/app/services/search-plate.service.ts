@@ -22,7 +22,7 @@ export class SearchPlateService {
   }
 
   searchPlateInfosByRegionMocked(regionTitle: string): Observable<IPlateInfo[]> {
-    return of(PlateInfoList.filter(item => item.code.length > 1 && item.region.title === regionTitle))
+    return of(PlateInfoList.filter(item => item.code.length > 1 && item.region.title.toLowerCase() === regionTitle.toLowerCase()));
   }
 
   getRandomSearchQueryMocked = (): Observable<IPlateInfo> => {

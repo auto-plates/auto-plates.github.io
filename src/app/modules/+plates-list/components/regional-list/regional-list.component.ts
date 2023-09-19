@@ -17,13 +17,12 @@ export class RegionalListComponent implements OnInit, OnDestroy {
 
   @Input() region: IRegionBase;
   @Input() currentCode = '';
-  isNodeJsBuild: boolean;
   plateInfoList: IPlateInfo[];
   displayedColumns: string[] = ['code', 'region', 'area', 'city', 'plate'];
   examplePlates: {[key: string]: SafeHtml} = {}
-
+  
+  private isNodeJsBuild: boolean;
   private nodeJsSubscription: Subscription;
-  private regionListSubscription: Subscription;
 
   constructor(
     private buildService: BuildService,
@@ -35,20 +34,21 @@ export class RegionalListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.nodeJsSubscription = this.buildService.isNodeJsBuild$.subscribe(this.handleBuild);
-    setTimeout(() => {
-      this.pb.startProgress();
-      this.searchPlateService.searchPlateInfosByRegionMocked(this.region.title)
-        .subscribe(this.handleRegionList)
-    }, 100);
   }
 
   ngOnDestroy(): void {
     this.nodeJsSubscription?.unsubscribe();
-    this.regionListSubscription?.unsubscribe();
   }
 
   private handleBuild = (isNodeJsBuild: boolean): void => {
     this.isNodeJsBuild = isNodeJsBuild;
+    setTimeout(() => {
+      this.pb.startProgress();
+      if (!this.isNodeJsBuild) {
+        this.searchPlateService.searchPlateInfosByRegionMocked(this.region.title)
+          .subscribe(this.handleRegionList);
+      }
+    }, 100);
   }
 
   private handleRegionList = (plateInfoList: IPlateInfo[]): void => {
