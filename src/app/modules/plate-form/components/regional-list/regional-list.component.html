@@ -3,27 +3,60 @@
     <table mat-table [dataSource]="plateInfoList" class="mat-elevation-z8">
       <ng-container matColumnDef="code">
         <th mat-header-cell *matHeaderCellDef>Kod</th>
-        <td mat-cell *matCellDef="let plateInfo" class="code-cell"> {{ plateInfo.code }} </td>
+        <td mat-cell *matCellDef="let plateInfoItem" class="code-cell"> {{ plateInfoItem.code }} </td>
       </ng-container>
 
       <ng-container matColumnDef="region">
         <th mat-header-cell *matHeaderCellDef>Województwo</th>
-        <td mat-cell *matCellDef="let plateInfo"> {{ plateInfo.region }} </td>
+        <td mat-cell *matCellDef="let plateInfoItem">{{ plateInfoItem.region.title }}</td>
       </ng-container>
 
       <ng-container matColumnDef="area">
         <th mat-header-cell *matHeaderCellDef>Powiat</th>
-        <td mat-cell *matCellDef="let plateInfo"> {{ plateInfo.area }} </td>
+        <td mat-cell *matCellDef="let plateInfoItem">
+          {{ plateInfoItem.promoPlates?.length ? '✪ PROMO' : plateInfoItem.area?.title }}</td>
       </ng-container>
 
       <ng-container matColumnDef="city">
         <th mat-header-cell *matHeaderCellDef>Miasto</th>
-        <td mat-cell *matCellDef="let plateInfo"> {{ plateInfo.city }} </td>
+        <td mat-cell *matCellDef="let plateInfoItem">
+          {{ plateInfoItem.city?.title }}
+          <ng-container *ngIf="plateInfoItem.city?.districts?.length">
+            &mdash;
+            <span *ngFor="let district of plateInfoItem.city.districts; let idx = index">
+              <ng-container *ngTemplateOutlet="districtTpl; context: district">
+              </ng-container>{{idx + 1 < plateInfoItem.city.districts.length ? ', ' : '' }}
+            </span>
+          </ng-container>
+
+          <ng-template
+            #districtTpl
+            let-title="title"
+            let-lastLetters="lastLetters"
+            let-prelastLetter="prelastLetter"
+          >
+            <span *ngIf="!lastLetters && !prelastLetter; else lettersTpl" class="district__item">{{ title }}</span>
+
+            <ng-template #lettersTpl>
+              <span
+                *ngIf="lastLetters"
+                class="district__item_help"
+                title="ostatnie litery - {{ lastLetters.join(', ') }}"
+              >{{ title }}<sup>*</sup></span>
+
+              <span
+                *ngIf="prelastLetter"
+                class="district__item_help"
+                title="przedostatnia litera - {{ prelastLetter }}"
+              >{{ title }}<sup>*</sup></span>
+            </ng-template>
+          </ng-template>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="plate">
         <th mat-header-cell *matHeaderCellDef>Próbka</th>
-        <td mat-cell *matCellDef="let plateInfo">
+        <td mat-cell *matCellDef="let plateInfoItem">
           <div class="plate flex">
             <div class="plate__sidebar flex direction-column justify-around align-center">
               <div class="plate__sidebar__img">
@@ -31,16 +64,18 @@
               </div>
               <div class="plate__sidebar__text">PL</div>
             </div>
-            <div class=plate__text>
-              {{ examplePlates[plateInfo.code] }}
-            </div>
+            <div class="plate__text flex justify-between" [innerHTML]="examplePlates[plateInfoItem.code]"></div>
           </div>
         </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns;"
+        [ngClass]="{'highlighted_row': currentCode === row.code}"
+      ></tr>
     </table>    
   </div>
 </div>

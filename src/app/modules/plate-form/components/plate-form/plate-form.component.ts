@@ -4,6 +4,7 @@ import { Subscription, debounceTime } from 'rxjs';
 import { RandomPlateService } from 'src/app/services/random-plate.service';
 import { SearchPlateService } from 'src/app/services/search-plate.service';
 import { IPlateInfo } from 'src/app/interfaces/plate-info.interface';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-plate-form',
@@ -15,11 +16,13 @@ export class PlateFormComponent implements OnInit, OnDestroy {
 
   @Input() form: PlateForm;
   plateInfo: IPlateInfo;
-  randomPlate: string;
+  randomPlate: SafeHtml;
   dynamicMaxLength = 3;
   isLoading: boolean;
   randomSearchQuery: string;
   isPromo: boolean;
+  prelastLetter: string;
+  lastLetter: string;
 
   private plateInfoSubscription: Subscription;
   private randomPlateInfoSubscription: Subscription;
@@ -27,6 +30,7 @@ export class PlateFormComponent implements OnInit, OnDestroy {
   constructor(
     private searchPlateService: SearchPlateService,
     private randomPlateService: RandomPlateService,
+    private sanitizer: DomSanitizer,
   ) {}
 
   ngOnInit(): void {
@@ -42,16 +46,23 @@ export class PlateFormComponent implements OnInit, OnDestroy {
   }
 
   searchByExampleQuery(): void {
+    this.resetKeyValues();
     this.form.plate.setValue(this.randomSearchQuery);
     this.loadRandomPlateInfo();
   }
 
   private handlePlateValueChanged = (value: string): void => {
     if (!value.length) {
-      this.isPromo = null;
-      this.plateInfo =  null;
-      this.randomPlate = null;
+      this.resetKeyValues();
     }
+  }
+
+  private resetKeyValues(): void {
+    this.isPromo = null;
+    this.plateInfo =  null;
+    this.randomPlate = null;
+    this.prelastLetter = null;
+    this.lastLetter = null;
   }
 
   private handlePlateInfo = (plateInfo: IPlateInfo): void => {
@@ -59,13 +70,20 @@ export class PlateFormComponent implements OnInit, OnDestroy {
       this.plateInfo = plateInfo;
       if (!plateInfo?.promoPlates?.length) {
         if (this.form.plate?.value?.length > 1) {
-          this.randomPlate = this.randomPlateService.generateRadomPlate();
+          const districts = this.plateInfo.city?.districts;
+          if (districts?.length) {
+            this.prelastLetter = this.randomPlateService.getPrelastLetterForDistrict(districts);
+            this.lastLetter = this.randomPlateService.getLastLetterForDistrict(districts)
+          }
+          this.randomPlate = this.sanitizer.bypassSecurityTrustHtml(
+            this.randomPlateService.generateRadomPlate(this.prelastLetter, this.lastLetter)
+          );
         } else {
-          this.randomPlate = null;
+          this.resetKeyValues();
         }
       } else {
         const promoPlates = this.plateInfo.promoPlates;
-        this.randomPlate = promoPlates[this.randomPlateService.randomNumber(0, promoPlates.length)];
+        this.randomPlate = promoPlates[this.randomPlateService.randomNumber(0, promoPlates.length - 1)];
       };
       this.isPromo = Boolean(this.plateInfo?.promoPlates?.length);
     }

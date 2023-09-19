@@ -243,6 +243,13 @@
 .plate__random-number {
   @include plateNumber;
 
+  ::ng-deep {
+    span {
+      color: var(--promo);
+      cursor: help;
+    }
+  }
+
   @include to-medium-desktop {
     @include plateNumberMedium;
   }

@@ -17,8 +17,6 @@ export class PlateSearchResultComponent implements OnInit, OnDestroy {
   
   isNodeJsBuild: boolean;
   plateInfo: IPlateInfo | null;
-  promoPlates: string[];
-  isPromo: boolean;
   isNothingFound = false;
   isFormSubmitted: boolean;
   isRegionSelected = false;
@@ -60,7 +58,7 @@ export class PlateSearchResultComponent implements OnInit, OnDestroy {
       this.pb.startProgress();
       this.isNothingFound = false;
       if (!this.isNodeJsBuild) {
-        this.searchPlateService.searchPlateInfoMocked(value).subscribe(this.handlePlateInfo);
+        this.searchPlateService.searchPlateInfoMocked(value.trim()).subscribe(this.handlePlateInfo);
       } else {
         // TODO add here service for node JS
       }
@@ -69,10 +67,7 @@ export class PlateSearchResultComponent implements OnInit, OnDestroy {
 
   private handlePlateInfo = (plateInfo: IPlateInfo): void => {
     setTimeout(() => {
-      if (plateInfo) {
-        this.plateInfo = plateInfo;
-        this.isPromo = Boolean(this.plateInfo?.promoPlates?.length);
-      }
+      this.plateInfo = plateInfo;
       this.searchPlateService.plateInfo$.next(plateInfo);
       this.isNothingFound = Boolean(this.form.plate?.value && !plateInfo);
       this.pb.stopProgress();

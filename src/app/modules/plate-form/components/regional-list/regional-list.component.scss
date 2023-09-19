@@ -39,11 +39,32 @@
   font-size: 3.9rem;
   letter-spacing: -1px;
   line-height: 32px;
+  padding: 0 10px;
   text-align: center;
   text-transform: uppercase;
-  width: 188px;
+  width: 200px;
+
+  ::ng-deep {
+    span {
+      color: var(--promo);
+    }
+  }
+
 }
 
 .container {
   max-width: 980px;
+}
+
+.highlighted_row,
+.highlighted_row:hover {
+  background: #eee !important;
+}
+
+.mat-column-plate {
+  width: 220px;
+}
+
+.district__item_help {
+  cursor: help;
 }

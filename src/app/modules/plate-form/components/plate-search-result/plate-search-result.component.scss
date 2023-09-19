@@ -2,6 +2,9 @@
 
 .search-result {
   @include text1;
+  line-height: 2;
+  margin: 0 auto;
+  max-width: 960px;
 
   @include mobile {
     @include text1Mobile;
@@ -10,8 +13,8 @@
     margin: 0 auto;
   }
 
-  @include to-small-desktop {
-    flex-direction: column;
+  @include to-medium-desktop {
+    max-width: 580px;
   }
 }
 
@@ -20,30 +23,29 @@
     line-height: 2.4;
   }
 
-  + .search-result__item {
-    @include mobile {
-      padding-top: 20px;
-    }
-  }
-
   &_nothing-found {
     color: var(--error);
     text-align: center;
-    max-width: 90%;
+  }
+
+  &_district {
+    width: 100%;
   }
 }
 
 .search-result__label {
   margin-right: 5px;
+  font-weight: 700;
 }
 
 .search-result__data {
   margin-left: 2px;
-  font-weight: 700;
+}
 
-  + .search-result__label {
-    margin-left: 30px;
-  }
+.search-result__list-item {
+  display: list-item;
+  list-style: circle;
+  margin-left: 20px;
 }
 
 .search-result__data_link {
