@@ -6,6 +6,14 @@
   opacity: 0;
 }
 
-.no-lc {
+.letter_spacing_0 {
+  letter-spacing: 0;
+}
+
+.mat-body,
+.mat-body-1,
+.mat-typography .mat-body,
+.mat-typography .mat-body-1,
+.mat-typography {
   letter-spacing: 0 !important;
 }

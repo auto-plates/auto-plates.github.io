@@ -1,10 +1,11 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PlateForm } from '../../forms/plate.form';
 import { Subscription, debounceTime } from 'rxjs';
 import { RandomPlateService } from 'src/app/services/random-plate.service';
 import { SearchPlateService } from 'src/app/services/search-plate.service';
 import { IPlateInfo } from 'src/app/interfaces/plate-info.interface';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { InputComponent } from 'src/app/modules/forms/components/input/input.component';
 
 @Component({
   selector: 'app-plate-form',
@@ -13,6 +14,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   providers: [ RandomPlateService ]
 })
 export class PlateFormComponent implements OnInit, OnDestroy {
+  @ViewChild(InputComponent) input: InputComponent;
 
   @Input() form: PlateForm;
   plateInfo: IPlateInfo;
@@ -49,6 +51,10 @@ export class PlateFormComponent implements OnInit, OnDestroy {
     this.resetKeyValues();
     this.form.plate.setValue(this.randomSearchQuery);
     this.loadRandomPlateInfo();
+  }
+
+  focusPlateControl(): void {
+    this.input.focusControl();
   }
 
   private handlePlateValueChanged = (value: string): void => {
