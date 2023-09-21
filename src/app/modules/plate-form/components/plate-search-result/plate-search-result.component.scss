@@ -1,26 +1,34 @@
 @import '../../../../../assets/styles/mixins/mixins.scss';
 
 .search-result {
-  @include text1;
+  @include text2;
   line-height: 2;
   margin: 0 auto;
   max-width: 960px;
+  padding: 0 20px;
+
+  @include to-medium-desktop {
+    max-width: 580px;
+  }
 
   @include mobile {
     @include text1Mobile;
     align-items: flex-start;
     max-width: 320px;
-    margin: 0 auto;
   }
 
-  @include to-medium-desktop {
-    max-width: 580px;
+  @include to-big-mobile {
+    margin: -1rem auto 0;
   }
 }
 
 .search-result__item {
   @include to-small-desktop {
     line-height: 2.4;
+  }
+
+  @include big-mobile {
+    @include text2Mobile;
   }
 
   &_nothing-found {
@@ -54,9 +62,8 @@
   height: 50px;
   line-height: 50px !important;
   margin-top: -6px;
-  @include text1;
 
   @include mobile {
-    @include text1Mobile;
+    @include text2Mobile;
   }
 }
