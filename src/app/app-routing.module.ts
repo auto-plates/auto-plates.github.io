@@ -4,7 +4,7 @@ import { RouteHelper } from './helpers/route.helper';
 
 const routes: Routes = [
   {
-    path: RouteHelper.DASHBOARD_PATH,
+    path: RouteHelper.EMPTY_PATH,
     loadChildren: () => import('./modules/+dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   {
@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: RouteHelper.DASHBOARD_PATH,
+    redirectTo: RouteHelper.EMPTY_PATH,
     pathMatch: 'full'
   }
 ];

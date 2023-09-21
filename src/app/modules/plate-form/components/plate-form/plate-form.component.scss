@@ -21,6 +21,7 @@
     font-family: Motor4f;
     font-size: 2.6rem;
     font-weight: 700;
+    letter-spacing: 0;
     line-height: 1.3;
     margin-left: 10px;
     margin-top: -5px;
@@ -180,6 +181,7 @@
 }
 
 .plate__input {
+  height: 124px;
   @include mobile {
     height: 68px;
   }
@@ -189,6 +191,7 @@
   }
 
   ::ng-deep {
+
     .mat-mdc-text-field-wrapper {
       background: none;
       border: none;
@@ -208,22 +211,19 @@
     }
 
     .mat-mdc-form-field-infix {
+      height: 124px;
       padding: 0 !important;
       min-width: 350px;
 
       @include to-medium-desktop {
         min-width: 230px;
-        min-height: 78px;
       }
 
       @include to-tablet {
         min-width: 180px;
-        min-height: 68px;
       }
       
       @include mobile {
-        height: 40px;
-        min-height: 40px;
         min-width: 106px;
       }
     }
@@ -234,27 +234,22 @@
 
     .mat-mdc-form-field-input-control.mat-mdc-form-field-input-control {
       @include plateNumber;
-      height: 124px !important;
-      line-height: 124px !important;
-      max-height: 124px;
+      margin-top: -30px;
       text-transform: uppercase;
 
       @include to-medium-desktop {
         @include plateNumberMedium;
-        height: 78px !important;
-        line-height: 78px !important;
+        margin-top: 6px;
       }
       
       @include to-tablet {
         @include plateNumberTablet;
-        height: 68px !important;
-        line-height: 68px !important;
+        margin-top: 16px;
       }
 
       @include mobile {
         @include plateNumberMobile;
-        height: 40px !important;
-        line-height: 40px;
+        margin-top: -6px;
       }
     }
 
