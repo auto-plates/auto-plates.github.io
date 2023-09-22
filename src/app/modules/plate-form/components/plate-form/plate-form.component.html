@@ -22,14 +22,33 @@
         <div class="plate__main flex justify-between align-center" (click)="focusPlateControl()">
           <div class="plate__input">
             <app-input
-              [control]="form.plate"
+              [control]="form.plateCode"
               [showLabel]="false"
               [showCloseBtn]="false"
               [maxLength]="dynamicMaxLength"
             >
             </app-input>
           </div>
-          <div class="plate__random-number" [innerHTML]="randomPlate"></div>
+          <div class="plate__random-number">
+            <span *ngFor="let symbol of randomPlate">
+              <ng-container *ngTemplateOutlet="plateSymbolTpl; context symbol"></ng-container>
+            </span>
+
+            <ng-template
+              #plateSymbolTpl
+              let-symbol="symbol"
+              let-isKeySymbol="isKeySymbol"
+              let-tooltip="tooltip"
+            >
+              <span *ngIf="!isKeySymbol">{{ symbol }}</span>
+              <span
+                class="plate__random-number_key-symbol"
+                *ngIf="isKeySymbol"
+                [matTooltip]="tooltip"
+                matTooltipPosition="above"
+              >{{ symbol }}</span>
+            </ng-template>
+          </div>
         </div>
       </div>
     </div>

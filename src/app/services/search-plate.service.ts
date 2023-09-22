@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { IPlateInfo } from '../interfaces/plate-info.interface';
-import { PlateInfoList } from '../data/plate-info.enum';
+import { IPlateItem } from '../interfaces/plate-item.interface';
+import { PlateInfoList } from '../data/plate-items.enum';
 import { RandomPlateService } from './random-plate.service';
 
 @Injectable({
@@ -9,23 +9,23 @@ import { RandomPlateService } from './random-plate.service';
 })
 export class SearchPlateService {
 
-  plateInfo$ = new BehaviorSubject<IPlateInfo>(null);
+  plateItem$ = new BehaviorSubject<IPlateItem>(null);
 
-  get plateInfo(): IPlateInfo {
-    return this.plateInfo$.value;
+  get plateItem(): IPlateItem {
+    return this.plateItem$.value;
   }
 
   constructor(private randomPlateService: RandomPlateService) {}
 
-  searchPlateInfoMocked(code: string): Observable<IPlateInfo> {
+  searchPlateInfoMocked(code: string): Observable<IPlateItem> {
     return of(PlateInfoList.filter(item => item.code.toLowerCase() === code.toLowerCase())[0]);
   }
 
-  searchPlateInfosByRegionMocked(regionTitle: string): Observable<IPlateInfo[]> {
-    return of(PlateInfoList.filter(item => item.code.length > 1 && item.region.title.toLowerCase() === regionTitle.toLowerCase()));
+  searchPlateInfosByRegionCodeMocked(regionCode: string): Observable<IPlateItem[]> {
+    return of(PlateInfoList.filter(item => item.code.length > 1 && item.code.charAt(0) === regionCode));
   }
 
-  getRandomSearchQueryMocked = (): Observable<IPlateInfo> => {
+  getRandomSearchQueryMocked = (): Observable<IPlateItem> => {
     const filteredPlates = PlateInfoList.filter(item => item.code.length > 1);
     return of(filteredPlates[this.randomPlateService.randomNumber(0, filteredPlates.length - 1)]);
   }

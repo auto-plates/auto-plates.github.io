@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { IRegion, IRegionBase } from 'src/app/interfaces/region.interface';
+import { IRegion, IRegionShort } from 'src/app/interfaces/region.interface';
 import { BuildService } from 'src/app/services/build.service';
 import { RegionsService } from 'src/app/services/regions.service';
 import { ITab } from '../ui/types/tab.interface';
@@ -14,7 +14,7 @@ import { ITab } from '../ui/types/tab.interface';
 })
 export class PlatesListComponent implements OnInit, OnDestroy {
 
-  region: IRegionBase;
+  regionCode: string;
   regions: IRegion[];
   selectedTabIndex: number;
   regionsAsTabs: ITab[];
@@ -33,8 +33,8 @@ export class PlatesListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.nodeJsSubscription = this.buildService.isNodeJsBuild$.subscribe(this.handleBuild);
     this.activatedRouteSubscription = this.activatedRoute.queryParams.subscribe(params => {
-      if (params['region']) {
-        this.region = {title: params['region']};
+      if (params['region_code']) {
+        this.regionCode = params['region_code'];
       }
       if (!this.isNodeJsBuild) {
         this.loadRegionsMocked();
@@ -54,7 +54,7 @@ export class PlatesListComponent implements OnInit, OnDestroy {
     this.router.navigate([], 
       {
         relativeTo: this.activatedRoute,
-        queryParams: { region: this.regions[value].title.toLowerCase() },
+        queryParams: { 'region_code': this.regions[value].code },
       }
     );
   }
@@ -66,10 +66,12 @@ export class PlatesListComponent implements OnInit, OnDestroy {
   private loadRegionsMocked(): void {
     this.regionsService.getRegionsMocked().subscribe((regions: IRegion[]) => {
       this.regions = regions;
-      this.selectedTabIndex = this.region
-        ? regions.findIndex(item => item.title.toLowerCase() === this.region.title.toLowerCase())
+      this.selectedTabIndex = this.regionCode
+        ? regions.findIndex(item => item.code === this.regionCode)
         : 0;
-      this.regionsAsTabs = regions.reduce((acc, curr) => [...acc, {label: `${curr.code} — ${curr.title}`}], []);
+      if (!this.regionsAsTabs) {
+        this.regionsAsTabs = regions.reduce((acc, curr) => [...acc, {label: `${curr.code} — ${curr.title}`}], []);
+      }
     })
   }
 }

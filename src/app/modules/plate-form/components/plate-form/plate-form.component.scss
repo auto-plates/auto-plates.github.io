@@ -264,13 +264,6 @@
   height: 124px;
   line-height: 124px;
 
-  ::ng-deep {
-    span {
-      color: var(--promo);
-      cursor: help;
-    }
-  }
-
   @include to-medium-desktop {
     @include plateNumberMedium;
     line-height: 78px;
@@ -291,4 +284,9 @@
     line-height: 40px;
     height: 40px;
   }
+}
+
+.plate__random-number_key-symbol {
+  color: var(--promo);
+  cursor: default;
 }

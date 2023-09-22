@@ -1,11 +1,13 @@
-import { IArea } from './area.interface';
+import { IAreaShort } from './area.interface';
 
 export interface IRegion {
-  title: string;
-  areas: IArea[];
+  areas: IAreaShort[];
+  capital: string;
   code: string;
+  title: string;
 }
-
-export interface IRegionBase {
+export interface IRegionShort {
+  capital: string;
+  code: string;
   title: string;
 }

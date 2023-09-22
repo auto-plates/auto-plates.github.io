@@ -55,14 +55,11 @@
   text-align: center;
   text-transform: uppercase;
   width: 200px;
+}
 
-  ::ng-deep {
-    span {
-      color: var(--promo);
-      cursor: help;
-    }
-  }
-
+.plate__text_random-number_key-symbol {
+  color: var(--promo);
+  cursor: default;
 }
 
 .container {
@@ -79,5 +76,5 @@
 }
 
 .district__item_help {
-  cursor: help;
+  cursor: default;
 }

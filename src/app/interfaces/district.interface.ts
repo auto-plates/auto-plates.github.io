@@ -1,5 +1,5 @@
 export interface IDistrict {
-  lastLetters?: string[];
-  prelastLetter?: string;
+  lastLetters: string[];
+  prelastLetter: string;
   title: string;
 }
