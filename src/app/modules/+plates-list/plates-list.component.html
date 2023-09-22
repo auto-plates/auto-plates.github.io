@@ -8,6 +8,6 @@
   </app-tabs>
   
   <ng-container *ngFor="let region of regions; let idx = index">
-    <app-regional-list *ngIf="idx === selectedTabIndex" [region]="region"></app-regional-list>
+    <app-regional-list *ngIf="idx === selectedTabIndex" [regionCode]="regionCode"></app-regional-list>
   </ng-container>
 </div>

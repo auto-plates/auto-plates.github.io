@@ -5,14 +5,14 @@ export class PlateForm extends FormContext<any> {
   static createForm(
   ): PlateForm {
     const form = new UntypedFormGroup({
-      plate: new UntypedFormControl(null, [Validators.pattern(('^[a-zA-Z \-\']+'))])
+      plateCode: new UntypedFormControl(null, [Validators.pattern(('^[a-zA-Z \-\']+'))])
     });
 
     return new PlateForm(form);
   }
 
-  get plate(): UntypedFormControl {
-    return this.getControl('plate');
+  get plateCode(): UntypedFormControl {
+    return this.getControl('plateCode');
   }
 
   constructor(public form: UntypedFormGroup) {

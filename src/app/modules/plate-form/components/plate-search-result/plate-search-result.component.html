@@ -1,43 +1,40 @@
 <div class="container">
   <div class="search-result flex direction-column pt-3 pb-3">
-    <ng-container *ngIf="plateInfo; else nothingFoundTpl">
-      <div *ngIf="plateInfo.region" class="search-result__item">
+    <ng-container *ngIf="plateItem; else nothingFoundTpl">
+      <div *ngIf="plateItem.region" class="search-result__item">
         <span class="search-result__label">Województwo:</span>
         <span class="search-result__data">
           <a
             [routerLink]="routeHelper.ListUrl"
-            [queryParams]="{ region: plateInfo.region.title.toLowerCase() }"
+            [queryParams]="{ region_code: plateItem.region.code }"
             class="search-result__data"
-          >{{ plateInfo.region.title }}</a>
+          >{{ plateItem.region.title }}</a>
         </span>
       </div>
 
-      <div *ngIf="plateInfo.promoPlates?.length" class="search-result__item flex align-center">
+      <div *ngIf="plateItem.promoPlates?.length" class="search-result__item flex align-center">
         <mat-icon>stars</mat-icon>
         <span class="search-result__data">PROMO</span>
       </div>
   
-      <div *ngIf="plateInfo.area" class="search-result__item">
+      <div *ngIf="plateItem.area" class="search-result__item">
         <span class="search-result__label">Powiat:</span>
-        <span class="search-result__data">{{ plateInfo.area.title }}</span>
-      </div>
-      
-      <div *ngIf="plateInfo.city" class="search-result__item">
-        <span class="search-result__label">Miasto:</span>
-        <span class="search-result__data">{{ plateInfo.city?.title }}</span>
+        <span class="search-result__data">
+          {{ plateItem.area.title }} {{ !areasService.isAreaNamedByCapital(plateItem) ? '(' + plateItem.area.capital.title + ')' : ''}}
+        </span>
       </div>
 
-      <div *ngIf="plateInfo.city?.districts?.length" class="search-result__item">
-        <ng-container *ngIf="plateInfo.city.districts.length > 1; else singleDistrictTpl">
+      <div *ngIf="plateItem.area?.capital?.districts?.length" class="search-result__item">
+        <ng-container *ngIf="plateItem.area.capital.districts.length > 1; else singleDistrictTpl">
           <div class="search-result__label">Dzielnice:</div>
-          <div *ngFor="let district of plateInfo.city.districts" class="search-result__list-item">
+          <div *ngFor="let district of plateItem.area.capital.districts" class="search-result__list-item">
             <ng-container *ngTemplateOutlet="districtTpl; context: district"></ng-container>
           </div>
         </ng-container>
 
         <ng-template singleDistrictTpl>
           <span class="search-result__label">Dzielnica:</span>
-          <ng-container *ngTemplateOutlet="districtTpl; context: plateInfo.city.districts[0]"></ng-container>
+          <ng-container *ngTemplateOutlet="districtTpl; context: plateItem.city.districts[0]"></ng-container>
         </ng-template>
 
         <ng-template
@@ -60,3 +57,5 @@
     </ng-template>
   </div>
 </div>
+
+<app-google-map *ngIf="plateItem" [plateItem]="plateItem"></app-google-map>

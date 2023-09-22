@@ -1,6 +1,6 @@
 {
   "name": "auto-plates",
-  "version": "2.0",
+  "version": "2.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -16,6 +16,7 @@
     "@angular/compiler": "^16.1.2",
     "@angular/core": "^16.1.2",
     "@angular/forms": "^16.1.2",
+    "@angular/google-maps": "^16.2.5",
     "@angular/material": "^16.1.5",
     "@angular/platform-browser": "^16.1.2",
     "@angular/platform-browser-dynamic": "^16.1.2",

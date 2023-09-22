@@ -2,11 +2,11 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { BuildService } from 'src/app/services/build.service';
 import { SearchPlateService } from 'src/app/services/search-plate.service';
-import { IPlateInfo } from 'src/app/interfaces/plate-info.interface';
+import { IPlateItem } from 'src/app/interfaces/plate-item.interface';
 import { ProgressBarService } from 'src/app/services/progress-bar.service';
 import { RandomPlateService } from 'src/app/services/random-plate.service';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { IRegionBase } from 'src/app/interfaces/region.interface';
+import { IPlateSymbol } from 'src/app/interfaces/plate-symbol.interface';
+import { AreasService } from 'src/app/services/area.service';
 
 @Component({
   selector: 'app-regional-list',
@@ -15,21 +15,25 @@ import { IRegionBase } from 'src/app/interfaces/region.interface';
 })
 export class RegionalListComponent implements OnInit, OnDestroy {
 
-  @Input() region: IRegionBase;
+  @Input() regionCode: string;
   @Input() currentCode = '';
-  plateInfoList: IPlateInfo[];
-  displayedColumns: string[] = ['code', 'region', 'area', 'city', 'plate'];
-  examplePlates: {[key: string]: SafeHtml} = {}
+  plateItemsList: IPlateItem[];
+  displayedColumns: string[] = ['code', 'region', 'area', 'district', 'plate'];
+  examplePlates: {[key: string]: {code: string, randomPlate: IPlateSymbol[]}} = {};
+  
+  get isDistrcitColumnVisible(): boolean {
+    return Boolean(this.plateItemsList?.findIndex(item => item.area?.capital?.districts?.length) >= 0);
+  };
   
   private isNodeJsBuild: boolean;
   private nodeJsSubscription: Subscription;
 
   constructor(
+    public areasService: AreasService,
     private buildService: BuildService,
     private searchPlateService: SearchPlateService,
     private pb: ProgressBarService,
     private randomPlateService: RandomPlateService,
-    private sanitizer: DomSanitizer,
   ) {}
 
   ngOnInit(): void {
@@ -45,24 +49,28 @@ export class RegionalListComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.pb.startProgress();
       if (!this.isNodeJsBuild) {
-        this.searchPlateService.searchPlateInfosByRegionMocked(this.region.title)
+        this.searchPlateService.searchPlateInfosByRegionCodeMocked(this.regionCode)
           .subscribe(this.handleRegionList);
       }
     }, 100);
   }
 
-  private handleRegionList = (plateInfoList: IPlateInfo[]): void => {
+  private handleRegionList = (plateItemsList: IPlateItem[]): void => {
     setTimeout(() => {
-      this.plateInfoList = plateInfoList.sort((lhs, rhs) => lhs.code < rhs.code ? -1 : 1);
-      this.plateInfoList.forEach(item => {
-        this.examplePlates[item.code] = this.sanitizer.bypassSecurityTrustHtml(this.generatePlate(item));
+      this.plateItemsList = plateItemsList.sort((lhs, rhs) => lhs.code < rhs.code ? -1 : 1);
+      this.plateItemsList.forEach(item => {
+        this.examplePlates[item.code] = {
+          code: item.code,
+          randomPlate: this.generatePlate(item)
+        }
       });
       this.pb.stopProgress();
     }, this.pb.localProgressTime);
   }
 
-  private generatePlate(plateInfo: IPlateInfo): string {
-    const districts = plateInfo.city?.districts;
+  private generatePlate(plateItem: IPlateItem): IPlateSymbol[] {
+    const districts = plateItem.area?.capital?.districts;
+    let resultArray: IPlateSymbol[] = [];
     let prelastLetter,
         lastLetter;
 
@@ -71,16 +79,18 @@ export class RegionalListComponent implements OnInit, OnDestroy {
       lastLetter = this.randomPlateService.getLastLetterForDistrict(districts)
     }
 
-    if (!plateInfo.promoPlates?.length) {
-      return `
-        <div class="code">${plateInfo.code}</div>
-        <div class="number">${this.randomPlateService.generateRadomPlate(prelastLetter, lastLetter)}</div>
-      `;
+    if (!plateItem.promoPlates?.length) {
+      resultArray = this.randomPlateService.generateRadomPlate(prelastLetter, lastLetter);
+    } else {
+      Array.from(plateItem.promoPlates[this.randomPlateService.randomNumber(0, plateItem.promoPlates.length - 1)]).map(symbol => {
+        resultArray.push({
+          symbol: symbol,
+          isKeySymbol: false,
+          tooltip: null
+        });
+      });
     }
 
-    return `
-      <div class="code">${plateInfo.code}</div>
-      <div class="number">${plateInfo.promoPlates[this.randomPlateService.randomNumber(0, plateInfo.promoPlates.length - 1)]}<div>
-    `;
+    return resultArray;
   }
 }
