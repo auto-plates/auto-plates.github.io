@@ -1,4 +1,4 @@
-# Auto Plates Service 2.2
+# Auto Plates Service 2.3
 
 ## Summary
 Online service for detecting region by car plate number.
