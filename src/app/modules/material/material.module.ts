@@ -10,7 +10,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
 
-
 @NgModule({
   declarations: [],
   imports: [
@@ -37,6 +36,6 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatTooltipModule,
     MatTabsModule,
   ],
-  providers: []
+  providers: [],
 })
-export class MaterialModule { }
+export class MaterialModule {}

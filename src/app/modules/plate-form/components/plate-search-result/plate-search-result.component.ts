@@ -11,17 +11,16 @@ import { AreasService } from 'src/app/services/area.service';
 @Component({
   selector: 'app-plate-search-result',
   templateUrl: './plate-search-result.component.html',
-  styleUrls: ['./plate-search-result.component.scss']
+  styleUrls: ['./plate-search-result.component.scss'],
 })
 export class PlateSearchResultComponent implements OnInit, OnDestroy {
-
   @Input() form: PlateForm;
-  
+
   plateItem: IPlateItem | null = null;
   isNothingFound = false;
   isFormSubmitted: boolean;
   isRegionSelected = false;
-  
+
   private isNodeJsBuild: boolean;
   private nodeJsSubscription: Subscription;
 
@@ -30,11 +29,13 @@ export class PlateSearchResultComponent implements OnInit, OnDestroy {
     public areasService: AreasService,
     private buildService: BuildService,
     private searchPlateService: SearchPlateService,
-    private pb: ProgressBarService,
+    private pb: ProgressBarService
   ) {}
 
   ngOnInit(): void {
-    this.nodeJsSubscription = this.buildService.isNodeJsBuild$.subscribe(this.handleBuild);
+    this.nodeJsSubscription = this.buildService.isNodeJsBuild$.subscribe(
+      this.handleBuild
+    );
     this.form.plateCode.valueChanges
       .pipe(debounceTime(500))
       .subscribe(this.searchPlate);
@@ -53,7 +54,7 @@ export class PlateSearchResultComponent implements OnInit, OnDestroy {
 
   private handleBuild = (isNodeJsBuild: boolean): void => {
     this.isNodeJsBuild = isNodeJsBuild;
-  }
+  };
 
   private searchPlate = (value: string): void => {
     this.isRegionSelected = null;
@@ -62,12 +63,14 @@ export class PlateSearchResultComponent implements OnInit, OnDestroy {
       this.pb.startProgress();
       this.isNothingFound = false;
       if (!this.isNodeJsBuild) {
-        this.searchPlateService.searchPlateInfoMocked(value.trim()).subscribe(this.handlePlateInfo);
+        this.searchPlateService
+          .searchPlateInfoMocked(value.trim())
+          .subscribe(this.handlePlateInfo);
       } else {
         // TODO add here service for node JS
       }
     }
-  }
+  };
 
   private handlePlateInfo = (plateItem: IPlateItem): void => {
     setTimeout(() => {
@@ -75,6 +78,6 @@ export class PlateSearchResultComponent implements OnInit, OnDestroy {
       this.searchPlateService.plateItem$.next(plateItem);
       this.isNothingFound = Boolean(this.form.plateCode?.value && !plateItem);
       this.pb.stopProgress();
-    }, this.pb.localProgressTime)
-  }
+    }, this.pb.localProgressTime);
+  };
 }

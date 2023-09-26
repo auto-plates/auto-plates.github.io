@@ -5,15 +5,9 @@ import { AppVersionComponent } from './components/app-version/app-version.compon
 import { MaterialModule } from '../material/material.module';
 
 @NgModule({
-  declarations: [
-    HeaderComponent,
-    AppVersionComponent
-  ],
-  imports: [
-    CommonModule,
-    MaterialModule,
-  ],
-  exports: [ HeaderComponent ],
-  providers: []
+  declarations: [HeaderComponent, AppVersionComponent],
+  imports: [CommonModule, MaterialModule],
+  exports: [HeaderComponent],
+  providers: [],
 })
-export class HeaderModule { }
+export class HeaderModule {}

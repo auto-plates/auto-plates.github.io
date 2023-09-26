@@ -21,9 +21,9 @@ import { FormsModule } from '../forms/forms.module';
     RouterModule,
     MaterialModule,
     FormsModule,
-    GoogleMapModule
+    GoogleMapModule,
   ],
   exports: [],
-  providers: []
+  providers: [],
 })
-export class DashboardModule { }
+export class DashboardModule {}

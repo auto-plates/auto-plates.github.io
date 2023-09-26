@@ -8,7 +8,6 @@ import { RandomPlateService } from './random-plate.service';
   providedIn: 'root',
 })
 export class SearchPlateService {
-
   plateItem$ = new BehaviorSubject<IPlateItem>(null);
 
   get plateItem(): IPlateItem {
@@ -18,15 +17,32 @@ export class SearchPlateService {
   constructor(private randomPlateService: RandomPlateService) {}
 
   searchPlateInfoMocked(code: string): Observable<IPlateItem> {
-    return of(PlateInfoList.filter(item => item.code.toLowerCase() === code.toLowerCase())[0]);
+    return of(
+      PlateInfoList.filter(
+        (item) => item.code.toLowerCase() === code.toLowerCase()
+      )[0]
+    );
   }
 
-  searchPlateInfosByRegionCodeMocked(regionCode: string): Observable<IPlateItem[]> {
-    return of(PlateInfoList.filter(item => item.code.length > 1 && item.code.charAt(0) === regionCode));
+  searchPlateInfosByRegionCodeMocked(
+    regionCode: string
+  ): Observable<IPlateItem[]> {
+    if (regionCode) {
+      return of(
+        PlateInfoList.filter(
+          (item) => item.code.length > 1 && item.code.charAt(0) === regionCode
+        )
+      );
+    }
+    return of(PlateInfoList.filter((item) => item.code.length > 1));
   }
 
   getRandomSearchQueryMocked = (): Observable<IPlateItem> => {
-    const filteredPlates = PlateInfoList.filter(item => item.code.length > 1);
-    return of(filteredPlates[this.randomPlateService.randomNumber(0, filteredPlates.length - 1)]);
-  }
+    const filteredPlates = PlateInfoList.filter((item) => item.code.length > 1);
+    return of(
+      filteredPlates[
+        this.randomPlateService.randomNumber(0, filteredPlates.length - 1)
+      ]
+    );
+  };
 }

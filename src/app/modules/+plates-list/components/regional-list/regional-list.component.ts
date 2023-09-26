@@ -11,20 +11,25 @@ import { AreasService } from 'src/app/services/area.service';
 @Component({
   selector: 'app-regional-list',
   templateUrl: './regional-list.component.html',
-  styleUrls: ['./regional-list.component.scss']
+  styleUrls: ['./regional-list.component.scss'],
 })
 export class RegionalListComponent implements OnInit, OnDestroy {
-
-  @Input() regionCode: string;
-  @Input() currentCode = '';
+  @Input() regionCode: string | null;
   plateItemsList: IPlateItem[];
   displayedColumns: string[] = ['code', 'region', 'area', 'district', 'plate'];
-  examplePlates: {[key: string]: {code: string, randomPlate: IPlateSymbol[]}} = {};
-  
+  examplePlates: {
+    [key: string]: { code: string; randomPlate: IPlateSymbol[] };
+  } = {};
+  isPlateItemsListLoaded: boolean;
+
   get isDistrcitColumnVisible(): boolean {
-    return Boolean(this.plateItemsList?.findIndex(item => item.area?.capital?.districts?.length) >= 0);
-  };
-  
+    return Boolean(
+      this.plateItemsList?.findIndex(
+        (item) => item.area?.capital?.districts?.length
+      ) >= 0
+    );
+  }
+
   private isNodeJsBuild: boolean;
   private nodeJsSubscription: Subscription;
 
@@ -33,11 +38,13 @@ export class RegionalListComponent implements OnInit, OnDestroy {
     private buildService: BuildService,
     private searchPlateService: SearchPlateService,
     private pb: ProgressBarService,
-    private randomPlateService: RandomPlateService,
+    private randomPlateService: RandomPlateService
   ) {}
 
   ngOnInit(): void {
-    this.nodeJsSubscription = this.buildService.isNodeJsBuild$.subscribe(this.handleBuild);
+    this.nodeJsSubscription = this.buildService.isNodeJsBuild$.subscribe(
+      this.handleBuild
+    );
   }
 
   ngOnDestroy(): void {
@@ -48,45 +55,61 @@ export class RegionalListComponent implements OnInit, OnDestroy {
     this.isNodeJsBuild = isNodeJsBuild;
     setTimeout(() => {
       this.pb.startProgress();
+      this.isPlateItemsListLoaded = false;
       if (!this.isNodeJsBuild) {
-        this.searchPlateService.searchPlateInfosByRegionCodeMocked(this.regionCode)
+        console.log(this.regionCode);
+        this.searchPlateService
+          .searchPlateInfosByRegionCodeMocked(this.regionCode)
           .subscribe(this.handleRegionList);
       }
     }, 100);
-  }
+  };
 
   private handleRegionList = (plateItemsList: IPlateItem[]): void => {
     setTimeout(() => {
-      this.plateItemsList = plateItemsList.sort((lhs, rhs) => lhs.code < rhs.code ? -1 : 1);
-      this.plateItemsList.forEach(item => {
+      this.plateItemsList = plateItemsList.sort((lhs, rhs) =>
+        lhs.code < rhs.code ? -1 : 1
+      );
+      this.plateItemsList.forEach((item) => {
         this.examplePlates[item.code] = {
           code: item.code,
-          randomPlate: this.generatePlate(item)
-        }
+          randomPlate: this.generatePlate(item),
+        };
       });
+      this.isPlateItemsListLoaded = true;
       this.pb.stopProgress();
     }, this.pb.localProgressTime);
-  }
+  };
 
   private generatePlate(plateItem: IPlateItem): IPlateSymbol[] {
     const districts = plateItem.area?.capital?.districts;
     let resultArray: IPlateSymbol[] = [];
-    let prelastLetter,
-        lastLetter;
+    let prelastLetter, lastLetter;
 
     if (districts?.length) {
-      prelastLetter = this.randomPlateService.getPrelastLetterForDistrict(districts);
-      lastLetter = this.randomPlateService.getLastLetterForDistrict(districts)
+      prelastLetter =
+        this.randomPlateService.getPrelastLetterForDistrict(districts);
+      lastLetter = this.randomPlateService.getLastLetterForDistrict(districts);
     }
 
     if (!plateItem.promoPlates?.length) {
-      resultArray = this.randomPlateService.generateRadomPlate(prelastLetter, lastLetter);
+      resultArray = this.randomPlateService.generateRadomPlate(
+        prelastLetter,
+        lastLetter
+      );
     } else {
-      Array.from(plateItem.promoPlates[this.randomPlateService.randomNumber(0, plateItem.promoPlates.length - 1)]).map(symbol => {
+      Array.from(
+        plateItem.promoPlates[
+          this.randomPlateService.randomNumber(
+            0,
+            plateItem.promoPlates.length - 1
+          )
+        ]
+      ).map((symbol) => {
         resultArray.push({
           symbol: symbol,
           isKeySymbol: false,
-          tooltip: null
+          tooltip: null,
         });
       });
     }

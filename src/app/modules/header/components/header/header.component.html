@@ -4,6 +4,8 @@
       class="logo flex"
       (click)="navigateToDashboard()"
       [class.pointer]="isInnerPage"
+      [matTooltip]="isInnerPage ? 'Do strony głównej' : null"
+      matTooltipPosition="below"
     >
       <div class="logo__sidebar flex direction-column justify-around align-center">
         <div class="logo__sidebar__img">
@@ -12,7 +14,7 @@
         <div class="logo__sidebar__text">PL</div>
       </div>
       <div class=logo__text>
-        auto•plates
+        AUTO•PLATES
       </div>
     </div>
     <span class="header-spacer"></span>

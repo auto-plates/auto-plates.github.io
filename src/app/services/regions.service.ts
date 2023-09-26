@@ -5,8 +5,7 @@ import { Regions } from '../data/regions.enum';
 
 @Injectable()
 export class RegionsService {
-
   getRegionsMocked = (): Observable<IRegion[]> => {
     return of(Regions);
-  }
+  };
 }

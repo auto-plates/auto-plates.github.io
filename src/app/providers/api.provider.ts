@@ -13,7 +13,10 @@ export class ApiProvider {
     return this.configProvider.api;
   }
 
-  constructor(private http: HttpClient, private configProvider: ConfigProvider) {}
+  constructor(
+    private http: HttpClient,
+    private configProvider: ConfigProvider
+  ) {}
 
   get = <T>(model: IApiRequest<void>, context?: HttpContext): Observable<T> => {
     return this.http.get<T>(`${this.api}/${model.path}`, {
@@ -30,7 +33,10 @@ export class ApiProvider {
     });
   };
 
-  post = <B, T>(model: IApiRequest<B>, context?: HttpContext): Observable<T> => {
+  post = <B, T>(
+    model: IApiRequest<B>,
+    context?: HttpContext
+  ): Observable<T> => {
     return this.http.post<T>(`${this.api}/${model.path}`, model.body, {
       withCredentials: true,
       context: context || new HttpContext(),
@@ -38,7 +44,10 @@ export class ApiProvider {
     });
   };
 
-  postWithoutResponse = <B, T>(model: IApiRequest<B>, context?: HttpContext): Observable<HttpResponse<T>> => {
+  postWithoutResponse = <B, T>(
+    model: IApiRequest<B>,
+    context?: HttpContext
+  ): Observable<HttpResponse<T>> => {
     return this.http.post<T>(`${this.api}/${model.path}`, model.body, {
       withCredentials: true,
       context: context || new HttpContext(),
@@ -48,7 +57,10 @@ export class ApiProvider {
   };
 
   postFile = <B>(model: IApiRequest<B>): Observable<Blob> => {
-    return this.http.post(`${this.api}/${model.path}`, model.body, { withCredentials: true, responseType: 'blob' });
+    return this.http.post(`${this.api}/${model.path}`, model.body, {
+      withCredentials: true,
+      responseType: 'blob',
+    });
   };
 
   getFile = <B>(model: IApiRequest<B>): Observable<Blob> => {
@@ -60,7 +72,9 @@ export class ApiProvider {
   };
 
   patch = <B, T>(model: IApiRequest<B>): Observable<T> => {
-    return this.http.patch<T>(`${this.api}/${model.path}`, model.body, { withCredentials: true });
+    return this.http.patch<T>(`${this.api}/${model.path}`, model.body, {
+      withCredentials: true,
+    });
   };
 
   put = <B, T>(model: IApiRequest<B>, context?: HttpContext): Observable<T> => {
@@ -72,10 +86,15 @@ export class ApiProvider {
   };
 
   delete = <T>(model: IApiRequest<void>): Observable<T> => {
-    return this.http.delete<T>(`${this.api}/${model.path}`, { withCredentials: true });
+    return this.http.delete<T>(`${this.api}/${model.path}`, {
+      withCredentials: true,
+    });
   };
 
   deleteWithBody = <B, T>(model: IApiRequest<B>): Observable<T> => {
-    return this.http.delete<T>(`${this.api}/${model.path}`, { withCredentials: true, body: model.body });
+    return this.http.delete<T>(`${this.api}/${model.path}`, {
+      withCredentials: true,
+      body: model.body,
+    });
   };
 }

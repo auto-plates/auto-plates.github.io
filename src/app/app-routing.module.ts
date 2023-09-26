@@ -5,22 +5,27 @@ import { RouteHelper } from './helpers/route.helper';
 const routes: Routes = [
   {
     path: RouteHelper.EMPTY_PATH,
-    loadChildren: () => import('./modules/+dashboard/dashboard.module').then(m => m.DashboardModule)
+    loadChildren: () =>
+      import('./modules/+dashboard/dashboard.module').then(
+        (m) => m.DashboardModule
+      ),
   },
   {
     path: RouteHelper.PLATES_LIST_PATH,
-    loadChildren: () => import('./modules/+plates-list/plates-list.module').then(m => m.PlatesListModule)
+    loadChildren: () =>
+      import('./modules/+plates-list/plates-list.module').then(
+        (m) => m.PlatesListModule
+      ),
   },
   {
     path: '**',
     redirectTo: RouteHelper.EMPTY_PATH,
-    pathMatch: 'full'
-  }
+    pathMatch: 'full',
+  },
 ];
 
-
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ],
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

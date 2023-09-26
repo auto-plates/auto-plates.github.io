@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { RouteHelper } from './helpers/route.helper';
 
 @NgModule({
-  declarations: [ AppComponent ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -16,7 +16,7 @@ import { RouteHelper } from './helpers/route.helper';
     AppRoutingModule,
     HeaderModule,
   ],
-  providers: [ RouteHelper ],
-  bootstrap: [ AppComponent ]
+  providers: [RouteHelper],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

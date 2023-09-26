@@ -12,8 +12,13 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 export abstract class FormContext<T> {
   static touchAll(control: AbstractControl): void {
     control.markAsTouched({ onlySelf: false });
-    if (control instanceof UntypedFormGroup || control instanceof UntypedFormArray) {
-      Object.values(control.controls).forEach((c: AbstractControl) => FormContext.touchAll(c));
+    if (
+      control instanceof UntypedFormGroup ||
+      control instanceof UntypedFormArray
+    ) {
+      Object.values(control.controls).forEach((c: AbstractControl) =>
+        FormContext.touchAll(c)
+      );
     }
   }
 
@@ -30,8 +35,14 @@ export abstract class FormContext<T> {
     return this.form.valueChanges;
   }
 
-  protected constructor(protected form: UntypedFormGroup, protected data?: any) {
-    this.formValueChanges = form.valueChanges.pipe(debounceTime(this.debounceTime), distinctUntilChanged());
+  protected constructor(
+    protected form: UntypedFormGroup,
+    protected data?: any
+  ) {
+    this.formValueChanges = form.valueChanges.pipe(
+      debounceTime(this.debounceTime),
+      distinctUntilChanged()
+    );
   }
 
   getControl(key: string): UntypedFormControl {
@@ -66,16 +77,25 @@ export abstract class FormContext<T> {
   }
 
   protected disableFields(controls: (AbstractControl | null)[]): void {
-    controls.forEach((control: AbstractControl | null) => control?.disable({ emitEvent: false }));
+    controls.forEach((control: AbstractControl | null) =>
+      control?.disable({ emitEvent: false })
+    );
   }
 
   protected clearFields(controls: (AbstractControl | null)[] | null): void {
-    controls?.forEach((control: AbstractControl | null) => control?.setValue(null, { emitEvent: false }));
+    controls?.forEach((control: AbstractControl | null) =>
+      control?.setValue(null, { emitEvent: false })
+    );
   }
 
-  protected setValidators(controls: (AbstractControl | null)[], validators?: ValidatorFn[]): void {
+  protected setValidators(
+    controls: (AbstractControl | null)[],
+    validators?: ValidatorFn[]
+  ): void {
     const resultValidators = validators ? validators : [Validators.required];
-    controls.forEach((control: AbstractControl | null) => control?.setValidators(resultValidators));
+    controls.forEach((control: AbstractControl | null) =>
+      control?.setValidators(resultValidators)
+    );
   }
 
   protected enableFields(controls: (AbstractControl | null)[]): void {

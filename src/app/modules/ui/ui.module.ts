@@ -4,12 +4,9 @@ import { MaterialModule } from '../material/material.module';
 import { TabsComponent } from './components/tabs/tabs.component';
 
 @NgModule({
-  declarations: [ TabsComponent ],
-  imports: [
-    CommonModule,
-    MaterialModule
-  ],
-  exports: [ TabsComponent ],
-  providers: []
+  declarations: [TabsComponent],
+  imports: [CommonModule, MaterialModule],
+  exports: [TabsComponent],
+  providers: [],
 })
-export class UiModule { }
+export class UiModule {}

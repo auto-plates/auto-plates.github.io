@@ -1,4 +1,12 @@
-import { AfterViewChecked, ChangeDetectorRef, Directive, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewChecked,
+  ChangeDetectorRef,
+  Directive,
+  HostBinding,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { AbstractControl, UntypedFormControl } from '@angular/forms';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { IDefaultControl } from 'src/app/interfaces/default-control.interface';
@@ -31,18 +39,16 @@ export class ControlDirective implements OnInit, AfterViewChecked, OnDestroy {
   constructor(
     protected validationService: ValidationService,
     protected formControlsOptionsService: FormControlsOptionsService,
-    protected cdf: ChangeDetectorRef,
+    protected cdf: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngAfterViewChecked(): void {
     this.cdf.detectChanges();
   }
 
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 
   focusControl(): void {}
 
