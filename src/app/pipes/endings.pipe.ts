@@ -10,6 +10,10 @@ export class EndingsPipe implements PipeTransform {
       value = +value;
     }
 
-    return titles[value % 100 > 4 && value % 100 < 20 ? 2 : cases[value % 10 < 5 ? value % 10 : 5]];
+    return titles[
+      value % 100 > 4 && value % 100 < 20
+        ? 2
+        : cases[value % 10 < 5 ? value % 10 : 5]
+    ];
   }
 }

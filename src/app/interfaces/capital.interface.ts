@@ -8,4 +8,3 @@ export interface ICapital {
 export interface ICapitalShort {
   title: string;
 }
-

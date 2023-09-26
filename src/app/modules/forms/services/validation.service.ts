@@ -6,7 +6,6 @@ import { ErrorCodeEnum } from '../types/error-code.enum';
   providedIn: 'root',
 })
 export class ValidationService {
-
   public getValidationErrorMessage(control: UntypedFormControl): string | null {
     if (!control.errors) {
       return null;
@@ -22,7 +21,7 @@ export class ValidationService {
 
     if (control.hasError(ErrorCodeEnum.minLength)) {
       const error = control.getError(ErrorCodeEnum.minLength);
-      return `Field must contain at least ${ error?.requiredLength } characters`;
+      return `Field must contain at least ${error?.requiredLength} characters`;
     }
 
     return null;

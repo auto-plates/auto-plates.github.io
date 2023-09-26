@@ -6,12 +6,13 @@ import { SearchPlateService } from 'src/app/services/search-plate.service';
 import { IPlateItem } from 'src/app/interfaces/plate-item.interface';
 import { InputComponent } from 'src/app/modules/forms/components/input/input.component';
 import { IPlateSymbol } from 'src/app/interfaces/plate-symbol.interface';
+import { RouteHelper } from 'src/app/helpers/route.helper';
 
 @Component({
   selector: 'app-plate-form',
   templateUrl: './plate-form.component.html',
   styleUrls: ['./plate-form.component.scss'],
-  providers: [ RandomPlateService ]
+  providers: [RandomPlateService],
 })
 export class PlateFormComponent implements OnInit, OnDestroy {
   @ViewChild(InputComponent) input: InputComponent;
@@ -30,12 +31,15 @@ export class PlateFormComponent implements OnInit, OnDestroy {
   private randomPlateInfoSubscription: Subscription;
 
   constructor(
+    public routeHelper: RouteHelper,
     private searchPlateService: SearchPlateService,
-    private randomPlateService: RandomPlateService,
+    private randomPlateService: RandomPlateService
   ) {}
 
   ngOnInit(): void {
-    this.plateItemSubscription = this.searchPlateService.plateItem$.subscribe(this.handlePlateInfo);
+    this.plateItemSubscription = this.searchPlateService.plateItem$.subscribe(
+      this.handlePlateInfo
+    );
     this.loadRandomPlateInfo();
     this.form.plateCode.valueChanges
       .pipe(debounceTime(500))
@@ -60,11 +64,11 @@ export class PlateFormComponent implements OnInit, OnDestroy {
     if (!value.length) {
       this.resetKeyValues();
     }
-  }
+  };
 
   private resetKeyValues(): void {
     this.isPromo = null;
-    this.plateItem =  null;
+    this.plateItem = null;
     this.randomPlate = null;
     this.prelastLetter = null;
     this.lastLetter = null;
@@ -77,35 +81,48 @@ export class PlateFormComponent implements OnInit, OnDestroy {
         if (this.form.plateCode?.value?.length > 1) {
           const districts = this.plateItem.area?.capital?.districts;
           if (districts?.length) {
-            this.prelastLetter = this.randomPlateService.getPrelastLetterForDistrict(districts);
-            this.lastLetter = this.randomPlateService.getLastLetterForDistrict(districts)
+            this.prelastLetter =
+              this.randomPlateService.getPrelastLetterForDistrict(districts);
+            this.lastLetter =
+              this.randomPlateService.getLastLetterForDistrict(districts);
           }
-          this.randomPlate = this.randomPlateService.generateRadomPlate(this.prelastLetter, this.lastLetter);
+          this.randomPlate = this.randomPlateService.generateRadomPlate(
+            this.prelastLetter,
+            this.lastLetter
+          );
         } else {
           this.resetKeyValues();
         }
       } else {
         const promoPlates = this.plateItem.promoPlates;
-        const resultPromoPlate = promoPlates[this.randomPlateService.randomNumber(0, promoPlates.length - 1)];
-        this.randomPlate = Array.from(resultPromoPlate).reduce((acc: IPlateSymbol[], curr: string) => {
-          acc.push({
-            symbol: curr,
-            isKeySymbol: false,
-            tooltip: null
-          });
-          return acc;
-        }, []);
-      };
+        const resultPromoPlate =
+          promoPlates[
+            this.randomPlateService.randomNumber(0, promoPlates.length - 1)
+          ];
+        this.randomPlate = Array.from(resultPromoPlate).reduce(
+          (acc: IPlateSymbol[], curr: string) => {
+            acc.push({
+              symbol: curr,
+              isKeySymbol: false,
+              tooltip: null,
+            });
+            return acc;
+          },
+          []
+        );
+      }
       this.isPromo = Boolean(this.plateItem?.promoPlates?.length);
     }
-  }
+  };
 
   private loadRandomPlateInfo() {
     this.randomPlateInfoSubscription?.unsubscribe();
     setTimeout(() => {
-      this.randomPlateInfoSubscription = this.searchPlateService.getRandomSearchQueryMocked().subscribe((randomPlateInfo => {
-        this.randomSearchQuery = randomPlateInfo.code;
-      }));
-    })
+      this.randomPlateInfoSubscription = this.searchPlateService
+        .getRandomSearchQueryMocked()
+        .subscribe((randomPlateInfo) => {
+          this.randomSearchQuery = randomPlateInfo.code;
+        });
+    });
   }
 }

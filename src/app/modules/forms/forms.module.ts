@@ -6,18 +6,9 @@ import { ControlDirective } from './directives/control.directive';
 import { InputComponent } from './components/input/input.component';
 
 @NgModule({
-  declarations: [
-    ControlDirective,
-    InputComponent,
-  ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MaterialModule
-  ],
-  exports: [
-    InputComponent,
-  ],
-  providers: []
+  declarations: [ControlDirective, InputComponent],
+  imports: [CommonModule, ReactiveFormsModule, MaterialModule],
+  exports: [InputComponent],
+  providers: [],
 })
-export class FormsModule { }
+export class FormsModule {}

@@ -6,19 +6,18 @@ import { ListRoutes } from './plates-list.routes';
 import { MaterialModule } from '../material/material.module';
 import { RegionalListComponent } from './components/regional-list/regional-list.component';
 import { UiModule } from '../ui/ui.module';
+import { GoogleMapModule } from '../google-map/google-map.module';
 
 @NgModule({
-  declarations: [
-    PlatesListComponent,
-    RegionalListComponent
-  ],
+  declarations: [PlatesListComponent, RegionalListComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(ListRoutes),
     MaterialModule,
     UiModule,
+    GoogleMapModule,
   ],
   exports: [],
-  providers: []
+  providers: [],
 })
-export class PlatesListModule { }
+export class PlatesListModule {}

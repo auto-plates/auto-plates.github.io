@@ -2,11 +2,16 @@
   <form class="plate-form">
     <div class="plate-form__description pt-3 pb-3">
       <p>Wpisz od 1 do 3 liter w poniższym polu, aby dowiedzieć się,
-        w jakim regionie/mieście został wydany numer. 
+        w jakim stanie/mieście wydano tablicę rejestracyjną pojazdu, lub przeszukaj
+        <a [routerLink]="routeHelper.ListUrl">listę tablic rejestracyjnych</a>.
       </p>
       <p>
         Na przykład
-        <a mat-stroked-button (click)="searchByExampleQuery()">{{ randomSearchQuery }}</a>
+        <a
+          class="plate-form__example-link"
+          mat-stroked-button
+          (click)="searchByExampleQuery()"
+        >{{ randomSearchQuery }}</a>
       </p>
     </div>
     <div class="plate__wrapper" [class.plate__wrapper_promo]="isPromo">

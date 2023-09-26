@@ -5,7 +5,6 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class ProgressBarService {
-
   isLoadInProgress$ = new BehaviorSubject<boolean>(false);
   localProgressTime = 1000;
 

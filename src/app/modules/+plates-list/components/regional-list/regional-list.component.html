@@ -15,7 +15,7 @@
         <th mat-header-cell *matHeaderCellDef>Powiat</th>
         <td mat-cell *matCellDef="let plateItem">
           {{ plateItem.promoPlates?.length ? '✪ PROMO' : plateItem.area?.title }}
-          {{ !areasService.isAreaNamedByCapital(plateItem) ? '(' + plateItem.area.capital.title + ')' : ''}}
+          {{ !areasService.isAreaNamedByCapital(plateItem) || areasService.isCityArea(plateItem) ? '(' + plateItem.area.capital.title + ')' : ''}}
         </td>
       </ng-container>
 
@@ -101,6 +101,8 @@
         *matRowDef="let row; columns: displayedColumns;"
         [ngClass]="{'highlighted_row': currentCode === row.code}"
       ></tr>
-    </table>    
+    </table>
   </div>
 </div>
+
+<app-google-map *ngIf="isPlateItemsListLoaded" [plateItemsList]="plateItemsList"></app-google-map>

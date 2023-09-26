@@ -20,7 +20,8 @@
       <div *ngIf="plateItem.area" class="search-result__item">
         <span class="search-result__label">Powiat:</span>
         <span class="search-result__data">
-          {{ plateItem.area.title }} {{ !areasService.isAreaNamedByCapital(plateItem) ? '(' + plateItem.area.capital.title + ')' : ''}}
+          {{ plateItem.area.title }}
+          {{ !areasService.isAreaNamedByCapital(plateItem) || areasService.isCityArea(plateItem) ? '(' + plateItem.area.capital.title + ')' : ''}}
         </span>
       </div>
 
@@ -58,4 +59,4 @@
   </div>
 </div>
 
-<app-google-map *ngIf="plateItem" [plateItem]="plateItem"></app-google-map>
+<app-google-map *ngIf="plateItem" [plateItemsList]="[plateItem]"></app-google-map>

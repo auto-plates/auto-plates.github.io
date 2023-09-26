@@ -7,10 +7,9 @@ import { ProgressBarService } from 'src/app/services/progress-bar.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-
   isLoadInProgress: boolean;
   isInnerPage: boolean;
 
@@ -20,14 +19,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private pb: ProgressBarService,
     private routeHelper: RouteHelper,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.progressBarSubscription = this.pb.isLoadInProgress$.subscribe(this.handleProgressBar);
+    this.progressBarSubscription = this.pb.isLoadInProgress$.subscribe(
+      this.handleProgressBar
+    );
     this.routerSubscription = this.router.events
       .pipe(filter((event: any) => event instanceof NavigationEnd))
-      .subscribe(this.handleRoute)
+      .subscribe(this.handleRoute);
   }
 
   ngOnDestroy(): void {
@@ -41,7 +42,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private handleProgressBar = (isLoadInProgress: boolean): void => {
     this.isLoadInProgress = isLoadInProgress;
-  }
+  };
 
   private handleRoute = (event: any): void => {
     this.isInnerPage = event.url !== this.routeHelper.dashboardUrl.join('');
