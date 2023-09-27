@@ -1,7 +1,0 @@
-@import '../../../../../assets/styles/mixins/mixins.scss';
-
-.app-version {
-  @include to-big-mobile {
-    display: none;
-  }
-}

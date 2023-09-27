@@ -7,6 +7,6 @@ import { ThemesEnum } from 'src/app/data/theme.enum';
   styleUrls: ['./app-version.component.scss'],
 })
 export class AppVersionComponent {
-  version = '2.4';
+  version = '2.0.1';
   theme: ThemesEnum = ThemesEnum.LIGHT;
 }
