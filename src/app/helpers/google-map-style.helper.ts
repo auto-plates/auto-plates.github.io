@@ -54,13 +54,13 @@ export class GoogleMapStyleHelper {
           weight: '3',
         },
         {
-          saturation: '28',
+          saturation: '-100',
         },
         {
           lightness: '55',
         },
         {
-          gamma: '0.31',
+          gamma: '0.18',
         },
       ],
     },
