@@ -7,9 +7,6 @@
 
 .header-spacer {
   flex: auto 1 1;
-  @include to-big-mobile {
-    display: none;
-  }
 }
 
 .logo {
